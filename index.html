@@ -1,10 +1,12 @@
-<html lang="zh-CN" data-theme="paper"><head>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PORTFOLIO · VIEW</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&amp;family=Space+Grotesk:wght@300;400;600&amp;display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#f5f4f0;--panel:#ffffff;--ink:#101216;--ink-2:#535862;--dim:#868d99;
@@ -284,14 +286,14 @@
   }
 </style>
 </head>
-<body class="view-mode loaded">
+<body class="view-mode">
 
 <div class="bg-lattice"></div>
 <div class="grain"></div>
 
-<div class="theme-bar" aria-hidden="true">
+<div class="theme-bar">
   <span class="tcap">配色</span>
-  <button class="tdot active" data-t="paper" title="纸白"></button>
+  <button class="tdot" data-t="paper" title="纸白"></button>
   <button class="tdot" data-t="ink" title="墨黑"></button>
   <button class="tdot" data-t="sand" title="暖米"></button>
   <button class="tdot" data-t="abyss" title="深蓝"></button>
@@ -303,470 +305,26 @@
     <span class="m"><span class="mi">角色<span class="thin">建模</span></span></span>
     <span class="m"><span class="mi">作品集</span></span>
   </h1>
-  <p class="sub" id="siteSub" contenteditable="false">3D CHARACTER · EFFECT RENDER</p>
+  <p class="sub" id="siteSub" contenteditable="true" spellcheck="false">3D CHARACTER · EFFECT RENDER</p>
   <section class="hero-outline" id="workOutline" aria-label="作品大纲">
     <div class="outline-head">
       <span class="outline-kick">INDEX / WORKS</span>
-      <h2 class="outline-title" id="outlineTitle" contenteditable="false">作品大纲</h2>
+      <h2 class="outline-title" id="outlineTitle" contenteditable="true" spellcheck="false">作品大纲</h2>
       <span class="outline-rule"></span>
     </div>
-    <nav class="outline-list" id="outlineList" aria-label="作品大纲列表"><button type="button" class="outline-item active" data-work-id="w2_mttola0c"><span class="outline-no">01</span><span class="outline-name">我的作品 01</span><span class="outline-view">VIEW</span></button></nav>
+    <nav class="outline-list" id="outlineList" aria-label="作品大纲列表"></nav>
   </section>
   <div class="scroll-cue"><span class="ln"><i></i></span>SCROLL</div>
 </header>
 
-<main id="main"><section class="work active in" id="w2_mttola0c" data-idx="0">
-      <div class="w-head">
-        <h2 class="w-name" contenteditable="false">我的作品 01</h2>
-        <div class="w-ops">
-          <button class="w-addg">＋ 小章节</button>
-          <button class="w-del">删除</button>
-        </div>
-      </div>
-      <div class="groups">
-        
-    <section class="group" data-id="g3_mttola0c">
-      <div class="g-head">
-        <span class="g-no" contenteditable="false">00</span>
-        <h3 class="g-title" contenteditable="false">视频预览</h3>
-        <span class="g-en" contenteditable="false">VIDEO PREVIEW</span>
-        <div class="g-ops">
-          <button class="g-del" title="删除此小章节">×</button>
-        </div>
-      </div>
-      <div class="slots video-slots">
-        
-    <div class="s-wrap video-wrap " draggable="true" data-slot-id="v4_mttola0c" data-size="medium" title="拖动以调整位置">
-      <div class="slot video-slot empty" data-id="v4_mttola0c" data-kind="video" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换视频">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
-          <button class="s-fit on" title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">视频预览</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入视频 · 建议 16:9 横向视频</span></span>
-        <i class="imgw"><video hidden="" playsinline="" controls="" preload="metadata" aria-label="视频预览"></video></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="v4_mttola0c"></div>
-    </div>
-        <button class="add-slot">＋ 新增视频</button>
-      </div>
-    </section>
-    <section class="group" data-id="g5_mttola0c">
-      <div class="g-head">
-        <span class="g-no" contenteditable="false">01</span>
-        <h3 class="g-title" contenteditable="false">3D角色效果主图</h3>
-        <span class="g-en" contenteditable="false">EFFECT RENDER</span>
-        <div class="g-ops">
-          <button class="g-del" title="删除此小章节">×</button>
-        </div>
-      </div>
-      <div class="slots gg2">
-        
-    <div class="s-wrap " draggable="true" data-slot-id="s6_mttola0d" data-size="medium" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s6_mttola0d" data-kind="image" style="--r: 3/4; aspect-ratio: 3 / 4; height: 680px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4" selected="">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色效果图</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 3:4 竖图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s6_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s7_mttola0d" data-size="medium" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s7_mttola0d" data-kind="image" style="--r: 3/4; aspect-ratio: 3 / 4; height: 680px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4" selected="">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色无光图</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 3:4 竖图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s7_mttola0d"></div>
-    </div>
-        <button class="add-slot">＋ 新增窗口</button>
-      </div>
-    </section>
-    <section class="group" data-id="g8_mttola0d">
-      <div class="g-head">
-        <span class="g-no" contenteditable="false">02</span>
-        <h3 class="g-title" contenteditable="false">角色渲染三视图</h3>
-        <span class="g-en" contenteditable="false">EFFECT RENDER</span>
-        <div class="g-ops">
-          <button class="g-del" title="删除此小章节">×</button>
-        </div>
-      </div>
-      <div class="slots gg3">
-        
-    <div class="s-wrap " draggable="true" data-slot-id="s9_mttola0d" data-size="small" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s9_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色正视图</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s9_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s10_mttola0d" data-size="small" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s10_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色侧视图</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s10_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s11_mttola0d" data-size="small" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s11_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色后视图</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s11_mttola0d"></div>
-    </div>
-        <button class="add-slot">＋ 新增窗口</button>
-      </div>
-    </section>
-    <section class="group" data-id="g12_mttola0d">
-      <div class="g-head">
-        <span class="g-no" contenteditable="false">03</span>
-        <h3 class="g-title" contenteditable="false">角色无光三视图</h3>
-        <span class="g-en" contenteditable="false">EFFECT RENDER</span>
-        <div class="g-ops">
-          <button class="g-del" title="删除此小章节">×</button>
-        </div>
-      </div>
-      <div class="slots gg3">
-        
-    <div class="s-wrap " draggable="true" data-slot-id="s13_mttola0d" data-size="small" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s13_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色正视图</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s13_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s14_mttola0d" data-size="small" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s14_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色侧视图</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s14_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s15_mttola0d" data-size="small" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s15_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色后视图</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s15_mttola0d"></div>
-    </div>
-        <button class="add-slot">＋ 新增窗口</button>
-      </div>
-    </section>
-    <section class="group" data-id="g16_mttola0d">
-      <div class="g-head">
-        <span class="g-no" contenteditable="false">04</span>
-        <h3 class="g-title" contenteditable="false">角色局部特写</h3>
-        <span class="g-en" contenteditable="false">EFFECT RENDER</span>
-        <div class="g-ops">
-          <button class="g-del" title="删除此小章节">×</button>
-        </div>
-      </div>
-      <div class="slots gg4">
-        
-    <div class="s-wrap " draggable="true" data-slot-id="s17_mttola0d" data-size="small" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s17_mttola0d" data-kind="image" style="--r: 1/1; aspect-ratio: 1 / 1; height: 334px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1" selected="">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色局部特写1</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 1:1 方图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s17_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s18_mttola0d" data-size="small" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s18_mttola0d" data-kind="image" style="--r: 1/1; aspect-ratio: 1 / 1; height: 334px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1" selected="">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色局部特写2</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 1:1 方图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s18_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s19_mttola0d" data-size="small" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s19_mttola0d" data-kind="image" style="--r: 1/1; aspect-ratio: 1 / 1; height: 334px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1" selected="">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色局部特写3</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 1:1 方图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s19_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s20_mttola0d" data-size="small" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s20_mttola0d" data-kind="image" style="--r: 1/1; aspect-ratio: 1 / 1; height: 334px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1" selected="">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色局部特写4</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 1:1 方图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s20_mttola0d"></div>
-    </div>
-    <div class="s-wrap span2" draggable="true" data-slot-id="s21_mttola0d" data-size="medium" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s21_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色局部特写5</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s21_mttola0d"></div>
-    </div>
-    <div class="s-wrap span2" draggable="true" data-slot-id="s22_mttola0d" data-size="medium" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s22_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">角色局部特写6</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s22_mttola0d"></div>
-    </div>
-        <button class="add-slot">＋ 新增窗口</button>
-      </div>
-    </section>
-    <section class="group" data-id="g23_mttola0d">
-      <div class="g-head">
-        <span class="g-no" contenteditable="false">05</span>
-        <h3 class="g-title" contenteditable="false">制作过程</h3>
-        <span class="g-en" contenteditable="false">EFFECT RENDER</span>
-        <div class="g-ops">
-          <button class="g-del" title="删除此小章节">×</button>
-        </div>
-      </div>
-      <div class="slots gg2">
-        
-    <div class="s-wrap span2" draggable="true" data-slot-id="s24_mttola0d" data-size="large" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s24_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium">中</option><option value="large" selected="">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">贴图绘制界面</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s24_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s25_mttola0d" data-size="medium" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s25_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">模型制作过程 1</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s25_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s26_mttola0d" data-size="medium" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s26_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">模型制作过程 2</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s26_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s27_mttola0d" data-size="medium" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s27_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">模型制作过程 3</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s27_mttola0d"></div>
-    </div>
-    <div class="s-wrap " draggable="true" data-slot-id="s28_mttola0d" data-size="medium" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s28_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">模型制作过程 4</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s28_mttola0d"></div>
-    </div>
-    <div class="s-wrap span2" draggable="true" data-slot-id="s29_mttola0d" data-size="large" title="拖动以调整位置">
-      <div class="slot  empty" data-id="s29_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
-        <div class="s-ops">
-          <button class="s-up" title="上传 / 替换图片">↑</button>
-          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
-          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium">中</option><option value="large" selected="">大</option></select>
-          <button class="s-fit " title="铺满 / 完整">适</button>
-          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
-        </div>
-        <span class="s-plus"></span>
-        <span class="s-label" contenteditable="false">渲染界面</span>
-        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
-        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
-      </div>
-      <div class="s-cap" contenteditable="false" data-cap="s29_mttola0d"></div>
-    </div>
-        <button class="add-slot">＋ 新增窗口</button>
-      </div>
-    </section>
-      <section class="group" data-id="g30_mttola0d">
-        <div class="g-head">
-          <span class="g-no" contenteditable="false">06</span>
-          <h3 class="g-title" contenteditable="false">制作总结</h3>
-          <span class="g-en" contenteditable="false">SUMMARY · NOTES</span>
-          <div class="g-ops">
-            <button class="g-del" title="删除此小章节">×</button>
-          </div>
-        </div>
-        <div class="summary-panel">
-          <ul class="s-list"><li><span class="stxt" contenteditable="false">在此输入制作总结…</span><button class="srm" title="删除">×</button></li><li><span class="stxt" contenteditable="false">可记录制作周期、使用软件、心得体会等</span><button class="srm" title="删除">×</button></li></ul>
-          <button class="add-item">+ 添加条目</button>
-        </div>
-      </section>
-      </div></section></main>
+<main id="main"></main>
 
 <button class="fab" id="btnAddWork">＋ 新增大章节 · 作品</button>
 
 <footer>
   <span><span class="fsq"></span>PORTFOLIO</span>
-  <span class="save-state" id="saveState">展示版 · 只读</span>
-  <span class="view-badge" id="viewBadge" style="display: inline-flex;"><i></i>展示版 · 只读</span>
+  <span class="save-state" id="saveState"><i></i>自动保存</span>
+  <span class="view-badge" id="viewBadge"><i></i>展示版 · 只读</span>
   <button id="btnView" title="打开不可修改的展示版" style="border-radius:3px;border:1px solid var(--line-2);padding:6px 12px;font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.15em;color:var(--ink-2);background:none;">展示版</button>
   <button id="btnExportPages" title="生成可上传到 GitHub Pages 的独立展示页" style="border-radius:3px;border:1px solid var(--line-2);padding:6px 12px;font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.15em;color:var(--ink-2);background:none;">发布到 GitHub Pages</button>
   <button id="btnClear" title="清空重置" style="border-radius:3px;border:1px solid var(--line-2);padding:6px 12px;font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.15em;color:var(--ink-2);background:none;">重置</button>
@@ -774,20 +332,20 @@
 
 <div class="toast" id="toast"></div>
 <div class="image-lightbox" id="imageLightbox" aria-hidden="true">
-  <div class="lightbox-backdrop" data-lightbox-close=""></div>
+  <div class="lightbox-backdrop" data-lightbox-close></div>
   <section class="lightbox-panel" role="dialog" aria-modal="true" aria-label="图片预览">
     <div class="lightbox-top">
       <span class="lightbox-kick">IMAGE PREVIEW</span>
-      <button class="lightbox-close" type="button" data-lightbox-close="" aria-label="关闭图片预览">×</button>
+      <button class="lightbox-close" type="button" data-lightbox-close aria-label="关闭图片预览">×</button>
     </div>
     <div class="lightbox-stage" id="lightboxStage">
       <img id="lightboxImage" alt="图片预览">
     </div>
     <div class="lightbox-tools" aria-label="图片缩放工具">
-      <button type="button" data-zoom-out="" aria-label="缩小">−</button>
+      <button type="button" data-zoom-out aria-label="缩小">−</button>
       <span class="zoom-value" id="zoomValue">100%</span>
-      <button type="button" data-zoom-in="" aria-label="放大">＋</button>
-      <button type="button" class="zoom-reset" data-zoom-reset="">重置</button>
+      <button type="button" data-zoom-in aria-label="放大">＋</button>
+      <button type="button" class="zoom-reset" data-zoom-reset>重置</button>
       <span class="zoom-hint">滚轮缩放 · 拖动查看 · ESC 关闭</span>
     </div>
   </section>
@@ -1982,6 +1540,8 @@ async function init(){
 }
 init().catch(err=>{console.error(err);toast('初始化失败');});
 </script>
+</body>
+</html>
 
 
 
@@ -1996,6 +1556,3 @@ init().catch(err=>{console.error(err);toast('初始化失败');});
 
 
 
-
-
-</body><div id="codex-browser-sidebar-comments-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 2147483647;"></div></html>
