@@ -1,0 +1,2001 @@
+<html lang="zh-CN" data-theme="paper"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PORTFOLIO · VIEW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&amp;family=Space+Grotesk:wght@300;400;600&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f4f0;--panel:#ffffff;--ink:#101216;--ink-2:#535862;--dim:#868d99;
+    --line:#e4e3dc;--line-2:#d2d1c9;--accent:#f2c500;--accent-soft:#fff3bf;
+    --expo:cubic-bezier(.16,1,.3,1);
+  }
+  [data-theme="ink"]{--paper:#131418;--panel:#1b1d22;--ink:#ebeee9;--ink-2:#a9aeb8;--dim:#727884;--line:#282b32;--line-2:#3b3f49;--accent-soft:rgba(242,197,0,.16);}
+  [data-theme="sand"]{--paper:#ece5d6;--panel:#f7f2e7;--ink:#2b2517;--ink-2:#6b6142;--dim:#9a8f74;--line:#ddd3bd;--line-2:#c9bd9f;--accent:#d9a400;--accent-soft:rgba(217,164,0,.18);}
+  [data-theme="abyss"]{--paper:#0d1520;--panel:#132030;--ink:#e6edf5;--ink-2:#9db0c4;--dim:#5f7288;--line:#1f3045;--line-2:#2f4560;--accent-soft:rgba(242,197,0,.16);}
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--line-2) var(--paper);}
+  body{font-family:'Noto Sans SC','Source Han Sans SC','Microsoft YaHei',sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s;}
+  button{font-family:inherit;cursor:pointer;}
+  ::selection{background:var(--ink);color:var(--paper);}
+
+  .bg-lattice{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cpath d='M140 133v14M133 140h14' stroke='%23d8d7d0' stroke-width='1'/%3E%3C/svg%3E");}
+  [data-theme="ink"] .bg-lattice,[data-theme="abyss"] .bg-lattice{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cpath d='M140 133v14M133 140h14' stroke='%233a4048' stroke-width='1'/%3E%3C/svg%3E");}
+  [data-theme="sand"] .bg-lattice{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cpath d='M140 133v14M133 140h14' stroke='%23c9bd9f' stroke-width='1'/%3E%3C/svg%3E");}
+  .grain{position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  /* ================= 页头 ================= */
+  .hero{position:relative;min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:0 9vw;z-index:1;}
+  .hero::before{content:"";position:absolute;left:9vw;top:26vh;width:9px;height:9px;background:var(--accent);}
+  .hero-kick{font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.6em;color:var(--ink-2);margin-bottom:30px;padding-left:18px;opacity:0;animation:riseIn .9s var(--expo) .1s forwards;}
+  .hero h1{font-size:clamp(48px,8.5vw,128px);font-weight:900;letter-spacing:.06em;line-height:1.08;outline:none;cursor:text;}
+  .hero h1 .thin{font-weight:300;}
+  .m{display:block;overflow:hidden;}
+  .mi{display:inline-block;transform:translateY(115%);transition:transform 1.15s var(--expo);}
+  body.loaded .mi{transform:none;}
+  .hero h1 .m:nth-child(2) .mi{transition-delay:.14s;}
+  .hero .sub{margin-top:26px;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:.5em;color:var(--dim);outline:none;cursor:text;max-width:720px;opacity:0;animation:riseIn 1s var(--expo) .5s forwards;}
+  /* 首页作品大纲：用于快速跳转到指定作品 */
+  .hero-outline{width:min(780px,100%);margin-top:42px;opacity:0;animation:riseIn 1s var(--expo) .78s forwards;}
+  .outline-head{display:flex;align-items:center;gap:14px;}
+  .outline-kick{font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.32em;color:var(--accent);white-space:nowrap;}
+  .outline-title{font-size:16px;font-weight:700;letter-spacing:.18em;outline:none;cursor:text;min-width:90px;}
+  .outline-rule{height:1px;background:var(--line);flex:1;}
+  .outline-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;margin-top:14px;}
+  .outline-empty{font-family:'Space Grotesk',monospace;font-size:11px;letter-spacing:.16em;color:var(--dim);padding:14px 0;border-top:1px solid var(--line);}
+  .outline-item{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;padding:12px 0;border:0;border-top:1px solid var(--line);background:none;color:var(--ink-2);text-align:left;transition:color .2s,transform .25s var(--expo);}
+  .outline-item:hover{color:var(--ink);transform:translateX(6px);}
+  .outline-item.active{color:var(--ink);}
+  .outline-no{font-family:'Space Grotesk',monospace;font-size:11px;color:var(--ink);background:var(--accent);padding:4px 6px;text-align:center;min-width:30px;clip-path:polygon(0 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%);}
+  .outline-name{font-size:13px;font-weight:700;letter-spacing:.08em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .outline-view{font-family:'Space Grotesk',monospace;font-size:9px;letter-spacing:.2em;color:var(--dim);transition:color .2s;}
+  .outline-item:hover .outline-view,.outline-item.active .outline-view{color:var(--accent);}
+  .hero .scroll-cue{position:absolute;left:9vw;bottom:44px;display:flex;align-items:center;gap:14px;font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.4em;color:var(--dim);opacity:0;animation:riseIn 1s var(--expo) 1s forwards;}
+  .hero .scroll-cue .ln{width:1px;height:42px;background:var(--line-2);position:relative;overflow:hidden;}
+  .hero .scroll-cue .ln i{position:absolute;left:0;top:-40%;width:100%;height:40%;background:var(--ink);animation:cue 1.8s var(--expo) infinite;}
+  @keyframes cue{to{top:110%}}
+  @keyframes riseIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+  /* ================= 大章节 = 一个完整作品 ================= */
+  main{position:relative;z-index:1;}
+  .work{position:relative;padding:13vh 9vw 11vh;border-top:1px solid var(--line);overflow:hidden;opacity:0;transition:opacity .9s ease;}
+  /* 大纲切换时只展示当前作品，避免所有大章节同时纵向堆叠。 */
+  .work:not(.active){display:none;}
+  .work.in{opacity:1;}
+  .work.out{opacity:0;transition-duration:.3s;}
+  .work.page-in{animation:pageTurnIn .62s var(--expo) both;transform-origin:left center;backface-visibility:hidden;}
+  @keyframes pageTurnIn{0%{opacity:0;transform:perspective(1300px) rotateY(-8deg) translateX(3%);filter:blur(1px)}100%{opacity:1;transform:none;filter:none}}
+  .work::before{content:"";position:absolute;top:20px;right:24px;width:14px;height:14px;border-top:1px solid var(--line-2);border-right:1px solid var(--line-2);animation:breathe 3.2s ease-in-out infinite;}
+  .work::after{content:"";position:absolute;bottom:20px;left:24px;width:14px;height:14px;border-bottom:1px solid var(--line-2);border-left:1px solid var(--line-2);animation:breathe 3.2s ease-in-out infinite .9s;}
+  @keyframes breathe{0%,100%{opacity:.4}50%{opacity:1}}
+  .w-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap;position:relative;z-index:2;}
+  .w-name{font-size:clamp(34px,5vw,72px);font-weight:900;letter-spacing:.08em;outline:none;cursor:text;min-width:100px;padding-bottom:4px;}
+  .w-head::after{content:"";flex:1;height:1px;background:var(--line);}
+  .w-ops{display:flex;gap:8px;flex-wrap:wrap;}
+  .w-ops button,.g-ops button{
+    font-family:'Space Grotesk',monospace;font-size:11px;letter-spacing:.12em;
+    background:none;border:1px solid var(--line-2);color:var(--ink-2);
+    padding:6px 12px;border-radius:3px;transition:all .2s;
+  }
+  .w-ops button:hover,.g-ops button:hover{border-color:var(--ink);color:var(--ink);}
+  .w-ops .w-del:hover,.g-ops .g-del:hover{border-color:#b3342c;color:#b3342c;}
+
+  /* 小章节（作品内的分类，如线框图/特写） */
+  .groups{margin-top:44px;display:flex;flex-direction:column;gap:40px;position:relative;z-index:2;}
+  .group{position:relative;padding:26px 0 4px;}
+  .g-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid var(--line);}
+  .g-no{font-family:'Space Grotesk',monospace;font-size:13px;font-weight:600;color:var(--ink);background:var(--accent);padding:4px 9px;clip-path:polygon(0 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%);outline:none;cursor:text;min-width:26px;text-align:center;}
+  .g-title{font-size:22px;font-weight:700;letter-spacing:.14em;outline:none;cursor:text;min-width:60px;}
+  .g-en{font-family:'Space Grotesk',monospace;font-size:11px;letter-spacing:.3em;color:var(--dim);outline:none;cursor:text;}
+  .g-ops{margin-left:auto;display:flex;gap:6px;}
+
+  /* 小窗口（上传槽位）——按大小控制每行数量，网格自动从上到下、从左到右排列 */
+  .slots{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:20px;align-items:start;justify-items:stretch;}
+  .slots.gg2,.slots.gg3,.slots.gg4,.slots.video-slots{grid-template-columns:repeat(12,minmax(0,1fr));}
+  /* 小：一行 4 张；中：一行 3 张；大：一行 2 张。比例（包括 1:1）只影响窗口高度。 */
+  .s-wrap{grid-column:span 4;}
+  .s-wrap[data-size="small"]{grid-column:span 3;}
+  .s-wrap[data-size="medium"]{grid-column:span 4;}
+  .s-wrap[data-size="large"]{grid-column:span 6;}
+  /* 视频单独采用更适合预览的布局：大号 16:9 视频独占整行。 */
+  .s-wrap.video-wrap[data-size="large"]{grid-column:span 12;}
+  .s-wrap.span2{grid-column:span 6;}
+  /* 兼容旧数据：即使视频曾被标记为跨两列，选择“大”后仍保持独占整行。 */
+  .s-wrap.video-wrap[data-size="large"].span2{grid-column:span 12;}
+  /* 窗口容器：图片槽位 + 下方说明文字 */
+  .s-wrap{display:flex;flex-direction:column;gap:8px;min-width:0;position:relative;transition:opacity .2s,transform .2s,filter .2s;}
+  .s-wrap[draggable="true"]{cursor:grab;}
+  .s-wrap[draggable="true"]:active{cursor:grabbing;}
+  .s-wrap.sorting{opacity:.42;filter:saturate(.45);}
+  .s-wrap.drop-before::before,.s-wrap.drop-after::after{content:"";position:absolute;z-index:8;left:-9px;right:-9px;height:3px;background:var(--accent);box-shadow:0 0 0 2px var(--accent-soft);pointer-events:none;}
+  .s-wrap.drop-before::before{top:-9px;}
+  .s-wrap.drop-after::after{bottom:-9px;}
+  .s-cap{
+    font-size:12px;line-height:1.7;color:var(--ink-2);text-align:center;
+    padding:5px 8px;border:1px dashed transparent;border-radius:3px;
+    outline:none;cursor:text;overflow-wrap:anywhere;min-height:1.4em;
+    transition:border-color .2s,background .2s,color .2s;
+  }
+  .s-cap:empty::before{content:"图片说明…";opacity:.4;pointer-events:none;}
+  .s-cap:hover{border-color:var(--line-2);}
+  .s-cap:focus{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);}
+  .slot{
+    position:relative;min-height:110px;min-width:0;
+    aspect-ratio:var(--r,'4/3'); /* CSS 兜底：内联样式失效时也能保持比例 */
+    background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow:hidden;
+    cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    opacity:0;transform:translateY(30px);clip-path:inset(9% 4% 9% 4% round 4px);
+    transition:opacity .8s ease,transform 1s var(--expo),clip-path 1.1s var(--expo),border-color .3s,box-shadow .3s;
+  }
+  .work.in .slot{opacity:1;transform:none;clip-path:inset(0 0 0 0 round 4px);}
+  .work.in .s-wrap:nth-child(2) .slot{transition-delay:.08s}
+  .work.in .s-wrap:nth-child(3) .slot{transition-delay:.16s}
+  .work.in .s-wrap:nth-child(4) .slot{transition-delay:.24s}
+  .work.in .s-wrap:nth-child(n+5) .slot{transition-delay:.3s}
+  /* 离开视口：快速收回（0.3s），再进入时重新播放完整入场动画 */
+  .work.out .slot{transition-duration:.25s,.3s,.3s;transition-delay:0s !important;transition-timing-function:ease;}
+  /* 章节标题入场：大章节名 / 小章节头 上移淡入 */
+  .w-head,.g-head{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .95s var(--expo);}
+  .work.in .w-head,.work.in .g-head{opacity:1;transform:none;}
+  .work.out .w-head,.work.out .g-head{transition-duration:.3s,.35s;transition-timing-function:ease;}
+  .slot:hover{border-color:var(--ink-2);box-shadow:0 16px 34px -18px rgba(16,18,22,.3);}
+  .slot.dragover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+
+  .s-plus{width:22px;height:22px;position:relative;opacity:.5;}
+  .s-plus::before,.s-plus::after{content:"";position:absolute;background:var(--ink-2);}
+  .s-plus::before{left:50%;top:0;bottom:0;width:1px;}
+  .s-plus::after{top:50%;left:0;right:0;height:1px;}
+  .s-label{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--ink-2);outline:none;cursor:text;text-align:center;padding:0 8px;max-width:calc(100% - 16px);overflow-wrap:anywhere;}
+  .s-hint{font-family:'Space Grotesk',monospace;font-size:9.5px;letter-spacing:.12em;color:var(--dim);text-align:center;padding:0 10px;line-height:1.9;max-width:calc(100% - 20px);overflow-wrap:anywhere;}
+  .s-hint span{outline:none;cursor:text;}
+  .slot.filled{background:var(--ink);border-color:var(--ink);cursor:default;}
+  .slot.filled:not(.video-slot){cursor:zoom-in;}
+  .slot.filled .s-plus,.slot.filled .s-hint{display:none;}
+  .slot.filled .s-label{position:absolute;left:0;bottom:0;z-index:3;display:flex;align-items:center;gap:8px;background:var(--paper);padding:7px 14px 7px 10px;font-size:11px;color:var(--ink);border-top-right-radius:4px;cursor:text;max-width:calc(100% - 20px);overflow-wrap:anywhere;}
+  .slot.filled .s-label::before{content:"";width:6px;height:6px;background:var(--accent);flex:0 0 auto;}
+  .imgw{position:absolute;inset:0;z-index:1;overflow:hidden;opacity:0;transition:opacity .8s ease;}
+  .work.in .imgw{opacity:1;}
+  .work.out .imgw{transition-duration:.3s;}
+  /* 图片：高度多 12% 做滚动视差流动（--py 由 JS 驱动），hover 微放大（--ps） */
+  .slot img,.slot video{position:absolute;left:0;top:-6%;width:100%;height:112%;object-fit:cover;display:block;-webkit-user-drag:none;transform:translateY(var(--py,0px)) scale(var(--ps,1));transition:transform .9s var(--expo);}
+  .slot.filled:hover img{--ps:1.045;}
+  .slot img.contain,.slot video.contain{object-fit:contain;background:#0d0f12;top:0;height:100%;}
+  .slot video{background:#0d0f12;}
+  .slot video::-webkit-media-controls-panel{background-image:linear-gradient(transparent,rgba(0,0,0,.55));}
+
+  .s-ops{position:absolute;top:8px;left:8px;z-index:4;display:flex;gap:6px;}
+  .s-ops button{
+    width:26px;height:26px;border-radius:50%;flex:0 0 auto;
+    background:var(--paper);border:1px solid var(--line-2);color:var(--ink);
+    font-size:12px;line-height:1;display:flex;align-items:center;justify-content:center;transition:all .2s;
+  }
+  .s-ops button:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .s-ops .s-del:hover{background:#b3342c;border-color:#b3342c;color:#fff;}
+  .s-ops .s-fit.on{background:var(--accent);border-color:var(--accent);}
+  .s-ops select{height:26px;max-width:74px;border:1px solid var(--line-2);border-radius:13px;padding:0 7px;background:var(--paper);color:var(--ink-2);font-family:'Space Grotesk','Noto Sans SC',sans-serif;font-size:10px;letter-spacing:.04em;outline:none;cursor:pointer;}
+  .s-ops select:hover,.s-ops select:focus{border-color:var(--ink);color:var(--ink);}
+
+  .add-slot{
+    border:1.5px dashed var(--line-2);background:none;border-radius:4px;min-height:110px;
+    color:var(--dim);font-family:'Space Grotesk',monospace;font-size:11px;letter-spacing:.2em;
+    transition:all .2s;display:flex;align-items:center;justify-content:center;
+  }
+  .add-slot:hover{border-color:var(--ink);color:var(--ink);}
+
+  /* 制作总结小章节 */
+  .summary-panel{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:30px 36px 24px;margin-top:20px;position:relative;}
+  .summary-panel::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);}
+  .summary-panel ul{list-style:none;}
+  .summary-panel li{position:relative;display:flex;align-items:baseline;gap:14px;font-size:16px;line-height:2.1;letter-spacing:.05em;padding:8px 36px 8px 0;border-bottom:1px solid var(--line);}
+  .summary-panel li::before{content:"";flex:0 0 auto;width:8px;height:8px;background:var(--accent);transform:translateY(-1px);}
+  .summary-panel li .stxt{flex:1;outline:none;padding:2px 8px;border-radius:2px;cursor:text;}
+  .summary-panel li .stxt:focus{background:var(--accent-soft);}
+  .summary-panel li .srm{position:absolute;right:4px;top:50%;transform:translateY(-50%);display:none;width:24px;height:24px;border-radius:50%;border:1px solid var(--line-2);background:var(--panel);color:var(--ink-2);cursor:pointer;font-size:13px;line-height:1;}
+  .summary-panel li:hover .srm{display:block;}
+  .summary-panel li .srm:hover{background:#b3342c;border-color:#b3342c;color:#fff;}
+  .add-item{margin-top:16px;font-family:'Space Grotesk',monospace;font-size:11px;letter-spacing:.2em;background:none;border:1px dashed var(--line-2);color:var(--ink-2);padding:9px 20px;cursor:pointer;border-radius:3px;transition:all .2s;}
+  .add-item:hover{border-color:var(--ink);color:var(--ink);}
+
+  /* 悬浮按钮 */
+  .fab{position:fixed;right:30px;bottom:30px;z-index:60;font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.2em;background:var(--ink);color:var(--paper);border:none;border-radius:28px;padding:14px 26px;box-shadow:0 12px 30px -10px rgba(0,0,0,.4);transition:transform .25s var(--expo),background .2s;}
+  .fab:hover{transform:translateY(-3px);background:var(--accent);color:var(--ink);}
+  /* 展示版：只保留鉴赏与预览交互，隐藏所有编辑控件。 */
+  body.view-mode .w-ops,body.view-mode .g-ops,body.view-mode .s-ops,body.view-mode .add-slot,body.view-mode .add-item,body.view-mode .srm,body.view-mode #btnAddWork,body.view-mode #btnClear,body.view-mode #btnView,body.view-mode #btnExportPages{display:none !important;}
+  body.view-mode [contenteditable="true"]{cursor:default;outline:none;}
+  body.view-mode .s-wrap[draggable="true"]{cursor:default;}
+  body.view-mode .view-badge{display:inline-flex;}
+  .view-badge{display:none;align-items:center;gap:7px;color:var(--ink-2);letter-spacing:.16em;}\n  body.view-mode .theme-bar{display:none;}
+  .view-badge i{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;}
+
+  footer{border-top:1px solid var(--line);padding:34px 9vw 120px;position:relative;z-index:1;display:flex;align-items:center;gap:26px;flex-wrap:wrap;font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.25em;color:var(--dim);}
+  footer .tcap{letter-spacing:.3em;}
+
+  /* 顶部固定配色条 */
+  .theme-bar{
+    position:fixed;top:16px;right:22px;z-index:120;
+    display:flex;align-items:center;gap:9px;
+    background:var(--paper);border:1px solid var(--line);border-radius:24px;
+    padding:8px 16px;box-shadow:0 10px 28px -14px rgba(0,0,0,.28);
+    transition:background .3s,border-color .3s;
+  }
+  .theme-bar .tcap{font-family:'Space Grotesk',monospace;font-size:9px;letter-spacing:.3em;color:var(--dim);margin-right:2px;}
+  .theme-bar .tdot{width:18px;height:18px;}
+
+  .tdot{width:20px;height:20px;border-radius:50%;border:1px solid var(--line-2);padding:0;transition:transform .2s,box-shadow .2s;}
+  .tdot:hover{transform:scale(1.18);}
+  .tdot.active{box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--accent);animation:tdotPulse 1.8s ease-in-out infinite;}
+  @keyframes tdotPulse{0%,100%{box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--accent)}50%{box-shadow:0 0 0 2px var(--paper),0 0 0 6px var(--accent-soft)}}
+  .tdot[data-t="paper"]{background:linear-gradient(135deg,#f5f4f0 55%,#101216 55%);}
+  .tdot[data-t="ink"]{background:linear-gradient(135deg,#131418 55%,#f2c500 55%);}
+  .tdot[data-t="sand"]{background:linear-gradient(135deg,#ece5d6 55%,#d9a400 55%);}
+  .tdot[data-t="abyss"]{background:linear-gradient(135deg,#0d1520 55%,#f2c500 55%);}
+  footer .fsq{width:9px;height:9px;background:var(--accent);display:inline-block;margin-right:10px;}
+  .save-state i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#57b894;margin-right:6px;}
+
+  .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(14px);background:var(--ink);color:var(--paper);font-family:'Space Grotesk',monospace;font-size:11px;letter-spacing:.15em;padding:12px 26px;border-radius:4px;opacity:0;pointer-events:none;transition:all .3s var(--expo);z-index:300;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* 图片独立预览：点击已上传图片后打开，可缩放、拖动查看细节 */
+  body.lightbox-open{overflow:hidden;}
+  .image-lightbox{position:fixed;inset:0;z-index:220;display:flex;align-items:center;justify-content:center;padding:28px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,visibility .25s ease;}
+  .image-lightbox.open{opacity:1;visibility:visible;pointer-events:auto;}
+  .lightbox-backdrop{position:absolute;inset:0;background:rgba(7,10,15,.82);backdrop-filter:blur(8px);}
+  .lightbox-panel{position:relative;z-index:1;width:min(1120px,94vw);max-height:94vh;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line-2);box-shadow:0 28px 90px rgba(0,0,0,.42);transform:translateY(12px) scale(.98);transition:transform .35s var(--expo);}
+  .image-lightbox.open .lightbox-panel{transform:none;}
+  .lightbox-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;border-bottom:1px solid var(--line);}
+  .lightbox-kick{font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.28em;color:var(--accent);}
+  .lightbox-close,.lightbox-tools button{border:1px solid var(--line-2);background:none;color:var(--ink-2);transition:all .2s;}
+  .lightbox-close{width:30px;height:30px;border-radius:3px;font-size:20px;line-height:1;}
+  .lightbox-close:hover,.lightbox-tools button:hover{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+  .lightbox-stage{position:relative;min-height:240px;height:min(70vh,720px);overflow:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,rgba(128,138,153,.14),transparent 64%),#0b0e13;cursor:grab;touch-action:none;}
+  .lightbox-stage.dragging{cursor:grabbing;}
+  #lightboxImage{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;user-select:none;-webkit-user-drag:none;transform:translate3d(0,0,0) scale(1);transform-origin:center center;transition:transform .2s var(--expo);}
+  .lightbox-stage.dragging #lightboxImage{transition:none;}
+  .lightbox-tools{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;padding:12px 18px;border-top:1px solid var(--line);font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.12em;color:var(--dim);}
+  .lightbox-tools button{min-width:34px;height:30px;border-radius:3px;font-size:16px;line-height:1;}
+  .lightbox-tools .zoom-reset{padding:0 12px;font-family:inherit;font-size:10px;letter-spacing:.12em;}
+  .zoom-value{min-width:54px;text-align:center;color:var(--ink);}
+  .zoom-hint{margin-left:8px;}
+  input[type=file]{display:none;}
+
+  @media (max-width:1300px){
+    .s-wrap[data-size="small"]{grid-column:span 4;}
+    .s-wrap[data-size="medium"]{grid-column:span 6;}
+    .s-wrap[data-size="large"]{grid-column:span 6;}
+    .s-wrap.video-wrap[data-size="large"]{grid-column:span 12;}
+  }
+  @media (max-width:1100px){
+    .s-wrap[data-size="small"],.s-wrap[data-size="medium"]{grid-column:span 6;}
+    .s-wrap[data-size="large"]{grid-column:span 12;}
+  }
+  @media (max-width:760px){
+    .hero{padding:0 7vw;}
+    .work{padding:11vh 7vw 9vh;}
+    .slots,.slots.gg2,.slots.gg3,.slots.gg4,.slots.video-slots{grid-template-columns:1fr;}
+    .s-wrap,.s-wrap[data-size="small"],.s-wrap[data-size="medium"],.s-wrap[data-size="large"],.s-wrap.span2{grid-column:auto;}
+    .outline-list{grid-template-columns:1fr;}
+    .outline-title{font-size:14px;}
+    .image-lightbox{padding:12px;}
+    .lightbox-panel{width:100%;max-height:96vh;}
+    .lightbox-stage{height:68vh;min-height:180px;}
+    .zoom-hint{width:100%;margin:2px 0 0;text-align:center;}
+  }
+</style>
+</head>
+<body class="view-mode loaded">
+
+<div class="bg-lattice"></div>
+<div class="grain"></div>
+
+<div class="theme-bar" aria-hidden="true">
+  <span class="tcap">配色</span>
+  <button class="tdot active" data-t="paper" title="纸白"></button>
+  <button class="tdot" data-t="ink" title="墨黑"></button>
+  <button class="tdot" data-t="sand" title="暖米"></button>
+  <button class="tdot" data-t="abyss" title="深蓝"></button>
+</div>
+
+<header class="hero">
+  <div class="hero-kick">PORTFOLIO</div>
+  <h1>
+    <span class="m"><span class="mi">角色<span class="thin">建模</span></span></span>
+    <span class="m"><span class="mi">作品集</span></span>
+  </h1>
+  <p class="sub" id="siteSub" contenteditable="false">3D CHARACTER · EFFECT RENDER</p>
+  <section class="hero-outline" id="workOutline" aria-label="作品大纲">
+    <div class="outline-head">
+      <span class="outline-kick">INDEX / WORKS</span>
+      <h2 class="outline-title" id="outlineTitle" contenteditable="false">作品大纲</h2>
+      <span class="outline-rule"></span>
+    </div>
+    <nav class="outline-list" id="outlineList" aria-label="作品大纲列表"><button type="button" class="outline-item active" data-work-id="w2_mttola0c"><span class="outline-no">01</span><span class="outline-name">我的作品 01</span><span class="outline-view">VIEW</span></button></nav>
+  </section>
+  <div class="scroll-cue"><span class="ln"><i></i></span>SCROLL</div>
+</header>
+
+<main id="main"><section class="work active in" id="w2_mttola0c" data-idx="0">
+      <div class="w-head">
+        <h2 class="w-name" contenteditable="false">我的作品 01</h2>
+        <div class="w-ops">
+          <button class="w-addg">＋ 小章节</button>
+          <button class="w-del">删除</button>
+        </div>
+      </div>
+      <div class="groups">
+        
+    <section class="group" data-id="g3_mttola0c">
+      <div class="g-head">
+        <span class="g-no" contenteditable="false">00</span>
+        <h3 class="g-title" contenteditable="false">视频预览</h3>
+        <span class="g-en" contenteditable="false">VIDEO PREVIEW</span>
+        <div class="g-ops">
+          <button class="g-del" title="删除此小章节">×</button>
+        </div>
+      </div>
+      <div class="slots video-slots">
+        
+    <div class="s-wrap video-wrap " draggable="true" data-slot-id="v4_mttola0c" data-size="medium" title="拖动以调整位置">
+      <div class="slot video-slot empty" data-id="v4_mttola0c" data-kind="video" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换视频">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
+          <button class="s-fit on" title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">视频预览</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入视频 · 建议 16:9 横向视频</span></span>
+        <i class="imgw"><video hidden="" playsinline="" controls="" preload="metadata" aria-label="视频预览"></video></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="v4_mttola0c"></div>
+    </div>
+        <button class="add-slot">＋ 新增视频</button>
+      </div>
+    </section>
+    <section class="group" data-id="g5_mttola0c">
+      <div class="g-head">
+        <span class="g-no" contenteditable="false">01</span>
+        <h3 class="g-title" contenteditable="false">3D角色效果主图</h3>
+        <span class="g-en" contenteditable="false">EFFECT RENDER</span>
+        <div class="g-ops">
+          <button class="g-del" title="删除此小章节">×</button>
+        </div>
+      </div>
+      <div class="slots gg2">
+        
+    <div class="s-wrap " draggable="true" data-slot-id="s6_mttola0d" data-size="medium" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s6_mttola0d" data-kind="image" style="--r: 3/4; aspect-ratio: 3 / 4; height: 680px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4" selected="">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色效果图</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 3:4 竖图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s6_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s7_mttola0d" data-size="medium" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s7_mttola0d" data-kind="image" style="--r: 3/4; aspect-ratio: 3 / 4; height: 680px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4" selected="">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色无光图</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 3:4 竖图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s7_mttola0d"></div>
+    </div>
+        <button class="add-slot">＋ 新增窗口</button>
+      </div>
+    </section>
+    <section class="group" data-id="g8_mttola0d">
+      <div class="g-head">
+        <span class="g-no" contenteditable="false">02</span>
+        <h3 class="g-title" contenteditable="false">角色渲染三视图</h3>
+        <span class="g-en" contenteditable="false">EFFECT RENDER</span>
+        <div class="g-ops">
+          <button class="g-del" title="删除此小章节">×</button>
+        </div>
+      </div>
+      <div class="slots gg3">
+        
+    <div class="s-wrap " draggable="true" data-slot-id="s9_mttola0d" data-size="small" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s9_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色正视图</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s9_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s10_mttola0d" data-size="small" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s10_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色侧视图</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s10_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s11_mttola0d" data-size="small" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s11_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色后视图</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s11_mttola0d"></div>
+    </div>
+        <button class="add-slot">＋ 新增窗口</button>
+      </div>
+    </section>
+    <section class="group" data-id="g12_mttola0d">
+      <div class="g-head">
+        <span class="g-no" contenteditable="false">03</span>
+        <h3 class="g-title" contenteditable="false">角色无光三视图</h3>
+        <span class="g-en" contenteditable="false">EFFECT RENDER</span>
+        <div class="g-ops">
+          <button class="g-del" title="删除此小章节">×</button>
+        </div>
+      </div>
+      <div class="slots gg3">
+        
+    <div class="s-wrap " draggable="true" data-slot-id="s13_mttola0d" data-size="small" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s13_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色正视图</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s13_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s14_mttola0d" data-size="small" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s14_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色侧视图</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s14_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s15_mttola0d" data-size="small" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s15_mttola0d" data-kind="image" style="--r: 9/16; aspect-ratio: 9 / 16; height: 594px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16" selected="">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色后视图</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 9:16 竖图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s15_mttola0d"></div>
+    </div>
+        <button class="add-slot">＋ 新增窗口</button>
+      </div>
+    </section>
+    <section class="group" data-id="g16_mttola0d">
+      <div class="g-head">
+        <span class="g-no" contenteditable="false">04</span>
+        <h3 class="g-title" contenteditable="false">角色局部特写</h3>
+        <span class="g-en" contenteditable="false">EFFECT RENDER</span>
+        <div class="g-ops">
+          <button class="g-del" title="删除此小章节">×</button>
+        </div>
+      </div>
+      <div class="slots gg4">
+        
+    <div class="s-wrap " draggable="true" data-slot-id="s17_mttola0d" data-size="small" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s17_mttola0d" data-kind="image" style="--r: 1/1; aspect-ratio: 1 / 1; height: 334px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1" selected="">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色局部特写1</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 1:1 方图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s17_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s18_mttola0d" data-size="small" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s18_mttola0d" data-kind="image" style="--r: 1/1; aspect-ratio: 1 / 1; height: 334px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1" selected="">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色局部特写2</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 1:1 方图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s18_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s19_mttola0d" data-size="small" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s19_mttola0d" data-kind="image" style="--r: 1/1; aspect-ratio: 1 / 1; height: 334px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1" selected="">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色局部特写3</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 1:1 方图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s19_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s20_mttola0d" data-size="small" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s20_mttola0d" data-kind="image" style="--r: 1/1; aspect-ratio: 1 / 1; height: 334px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9">16:9</option><option value="9/16">9:16</option><option value="1/1" selected="">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small" selected="">小</option><option value="medium">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色局部特写4</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 1:1 方图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s20_mttola0d"></div>
+    </div>
+    <div class="s-wrap span2" draggable="true" data-slot-id="s21_mttola0d" data-size="medium" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s21_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色局部特写5</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s21_mttola0d"></div>
+    </div>
+    <div class="s-wrap span2" draggable="true" data-slot-id="s22_mttola0d" data-size="medium" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s22_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">角色局部特写6</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s22_mttola0d"></div>
+    </div>
+        <button class="add-slot">＋ 新增窗口</button>
+      </div>
+    </section>
+    <section class="group" data-id="g23_mttola0d">
+      <div class="g-head">
+        <span class="g-no" contenteditable="false">05</span>
+        <h3 class="g-title" contenteditable="false">制作过程</h3>
+        <span class="g-en" contenteditable="false">EFFECT RENDER</span>
+        <div class="g-ops">
+          <button class="g-del" title="删除此小章节">×</button>
+        </div>
+      </div>
+      <div class="slots gg2">
+        
+    <div class="s-wrap span2" draggable="true" data-slot-id="s24_mttola0d" data-size="large" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s24_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium">中</option><option value="large" selected="">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">贴图绘制界面</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s24_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s25_mttola0d" data-size="medium" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s25_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">模型制作过程 1</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s25_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s26_mttola0d" data-size="medium" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s26_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">模型制作过程 2</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s26_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s27_mttola0d" data-size="medium" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s27_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">模型制作过程 3</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s27_mttola0d"></div>
+    </div>
+    <div class="s-wrap " draggable="true" data-slot-id="s28_mttola0d" data-size="medium" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s28_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium" selected="">中</option><option value="large">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">模型制作过程 4</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s28_mttola0d"></div>
+    </div>
+    <div class="s-wrap span2" draggable="true" data-slot-id="s29_mttola0d" data-size="large" title="拖动以调整位置">
+      <div class="slot  empty" data-id="s29_mttola0d" data-kind="image" style="--r: 16/9; aspect-ratio: 16 / 9; height: 287px;">
+        <div class="s-ops">
+          <button class="s-up" title="上传 / 替换图片">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例"><option value="16/9" selected="">16:9</option><option value="9/16">9:16</option><option value="1/1">1:1</option><option value="4/3">4:3</option><option value="3/4">3:4</option><option value="3/2">3:2</option><option value="2/3">2:3</option><option value="21/9">21:9</option></select>
+          <select class="s-size" title="调整大小" aria-label="调整大小"><option value="small">小</option><option value="medium">中</option><option value="large" selected="">大</option></select>
+          <button class="s-fit " title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="false">渲染界面</span>
+        <span class="s-hint"><span contenteditable="false">点击 / 拖入图片 · 建议 16:9 横图</span></span>
+        <i class="imgw"><img hidden="" alt="" style="--py: -13.0px;"></i>
+      </div>
+      <div class="s-cap" contenteditable="false" data-cap="s29_mttola0d"></div>
+    </div>
+        <button class="add-slot">＋ 新增窗口</button>
+      </div>
+    </section>
+      <section class="group" data-id="g30_mttola0d">
+        <div class="g-head">
+          <span class="g-no" contenteditable="false">06</span>
+          <h3 class="g-title" contenteditable="false">制作总结</h3>
+          <span class="g-en" contenteditable="false">SUMMARY · NOTES</span>
+          <div class="g-ops">
+            <button class="g-del" title="删除此小章节">×</button>
+          </div>
+        </div>
+        <div class="summary-panel">
+          <ul class="s-list"><li><span class="stxt" contenteditable="false">在此输入制作总结…</span><button class="srm" title="删除">×</button></li><li><span class="stxt" contenteditable="false">可记录制作周期、使用软件、心得体会等</span><button class="srm" title="删除">×</button></li></ul>
+          <button class="add-item">+ 添加条目</button>
+        </div>
+      </section>
+      </div></section></main>
+
+<button class="fab" id="btnAddWork">＋ 新增大章节 · 作品</button>
+
+<footer>
+  <span><span class="fsq"></span>PORTFOLIO</span>
+  <span class="save-state" id="saveState">展示版 · 只读</span>
+  <span class="view-badge" id="viewBadge" style="display: inline-flex;"><i></i>展示版 · 只读</span>
+  <button id="btnView" title="打开不可修改的展示版" style="border-radius:3px;border:1px solid var(--line-2);padding:6px 12px;font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.15em;color:var(--ink-2);background:none;">展示版</button>
+  <button id="btnExportPages" title="生成可上传到 GitHub Pages 的独立展示页" style="border-radius:3px;border:1px solid var(--line-2);padding:6px 12px;font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.15em;color:var(--ink-2);background:none;">发布到 GitHub Pages</button>
+  <button id="btnClear" title="清空重置" style="border-radius:3px;border:1px solid var(--line-2);padding:6px 12px;font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.15em;color:var(--ink-2);background:none;">重置</button>
+</footer>
+
+<div class="toast" id="toast"></div>
+<div class="image-lightbox" id="imageLightbox" aria-hidden="true">
+  <div class="lightbox-backdrop" data-lightbox-close=""></div>
+  <section class="lightbox-panel" role="dialog" aria-modal="true" aria-label="图片预览">
+    <div class="lightbox-top">
+      <span class="lightbox-kick">IMAGE PREVIEW</span>
+      <button class="lightbox-close" type="button" data-lightbox-close="" aria-label="关闭图片预览">×</button>
+    </div>
+    <div class="lightbox-stage" id="lightboxStage">
+      <img id="lightboxImage" alt="图片预览">
+    </div>
+    <div class="lightbox-tools" aria-label="图片缩放工具">
+      <button type="button" data-zoom-out="" aria-label="缩小">−</button>
+      <span class="zoom-value" id="zoomValue">100%</span>
+      <button type="button" data-zoom-in="" aria-label="放大">＋</button>
+      <button type="button" class="zoom-reset" data-zoom-reset="">重置</button>
+      <span class="zoom-hint">滚轮缩放 · 拖动查看 · ESC 关闭</span>
+    </div>
+  </section>
+</div>
+<input type="file" id="fileInput" accept="image/*">
+
+<script>
+/* ================================================================
+   三层结构：大章节(作品) → 小章节(分类) → 小窗口(上传槽位)
+   新增大章节 = 复制整套模板结构（效果图/线框/布线/特写/过程/总结）
+================================================================ */
+const LS='pf_v3';
+const LS_THEME='pf_theme';
+const EMBEDDED_SHARE=window.__PF_SHARE__||null;
+const VIEW_MODE=true;
+const HINT_DEF='点击 / 拖入图片';
+const SIZE_VALUES=['small','medium','large'];
+const SIZE_LABELS={small:'小',medium:'中',large:'大'};
+const RATIO_OPTIONS=[
+  ['16/9','16:9'],['9/16','9:16'],['1/1','1:1'],['4/3','4:3'],['3/4','3:4'],
+  ['3/2','3:2'],['2/3','2:3'],['21/9','21:9']
+];
+let sid=1;
+function newId(p){return (p||'x')+(++sid)+'_'+Date.now().toString(36);}
+
+function defaultWork(name){
+  /* 与原始 PSD 模板一致：01 效果主图 / 02 渲染三视图 / 03 无光三视图 / 04 局部特写 / 05 制作过程 / 06 总结 */
+  const s=(l,ratio,hint,span)=>({id:newId('s'),label:l,ratio:ratio||'4/3',hint:HINT_DEF+(hint?' · 建议 '+hint:''),fit:'cover',span:!!span});
+  return {
+    id:newId('w'),name:name||'未命名作品',
+    groups:[
+      {id:newId('g'),no:'00',title:'视频预览',en:'VIDEO PREVIEW',type:'video',layout:'video-slots',slots:[
+        {id:newId('v'),kind:'video',label:'视频预览',hint:'点击 / 拖入视频 · 建议 16:9 横向视频',ratio:'16/9',fit:'contain',size:'medium'}]},
+      {id:newId('g'),no:'01',title:'3D角色效果主图',en:'EFFECT RENDER',layout:'gg2',slots:[
+        s('角色效果图','3/4','3:4 竖图'),s('角色无光图','3/4','3:4 竖图')]},
+      {id:newId('g'),no:'02',title:'角色渲染三视图',en:'EFFECT RENDER',layout:'gg3',slots:[
+        s('角色正视图','9/16','9:16 竖图'),s('角色侧视图','9/16','9:16 竖图'),s('角色后视图','9/16','9:16 竖图')]},
+      {id:newId('g'),no:'03',title:'角色无光三视图',en:'EFFECT RENDER',layout:'gg3',slots:[
+        s('角色正视图','9/16','9:16 竖图'),s('角色侧视图','9/16','9:16 竖图'),s('角色后视图','9/16','9:16 竖图')]},
+      {id:newId('g'),no:'04',title:'角色局部特写',en:'EFFECT RENDER',layout:'gg4',slots:[
+        s('角色局部特写1','1/1','1:1 方图'),s('角色局部特写2','1/1','1:1 方图'),s('角色局部特写3','1/1','1:1 方图'),s('角色局部特写4','1/1','1:1 方图'),
+        s('角色局部特写5','16/9','16:9 横图',true),s('角色局部特写6','16/9','16:9 横图',true)]},
+      {id:newId('g'),no:'05',title:'制作过程',en:'EFFECT RENDER',layout:'gg2',slots:[
+        s('贴图绘制界面','16/9','16:9 横图',true),s('模型制作过程 1','16/9','16:9 横图'),s('模型制作过程 2','16/9','16:9 横图'),
+        s('模型制作过程 3','16/9','16:9 横图'),s('模型制作过程 4','16/9','16:9 横图'),s('渲染界面','16/9','16:9 横图',true)]},
+      {id:newId('g'),no:'06',title:'制作总结',en:'SUMMARY · NOTES',type:'summary',items:['在此输入制作总结…','可记录制作周期、使用软件、心得体会等']}
+    ]
+  };
+}
+function defaultState(){return {sub:'3D CHARACTER · EFFECT RENDER',outlineTitle:'作品大纲',works:[defaultWork('我的作品 01')]};}
+
+/* ---------- 存储 ---------- */
+function loadState(){
+  /* GitHub Pages 独立展示页把作品数据直接嵌入 HTML，不再依赖发布者浏览器的本地存储。 */
+  if(EMBEDDED_SHARE&&EMBEDDED_SHARE.state&&Array.isArray(EMBEDDED_SHARE.state.works)){
+    try{return JSON.parse(JSON.stringify(EMBEDDED_SHARE.state));}catch(e){}
+  }
+  try{
+    const s=JSON.parse(localStorage.getItem(LS));
+    /* 允许空 works 数组：用户删光作品后刷新不应复活默认模板 */
+    if(s&&Array.isArray(s.works))return s;
+  }catch(e){}
+  /* 旧版迁移 pf_v2 → 按模板重建每组结构，同标签窗口保留 id（图片不丢） */
+  try{
+    const o=JSON.parse(localStorage.getItem('pf_v2'));
+    if(o&&Array.isArray(o.works)&&o.works.length){
+      const works=o.works.map(w=>{
+        const nw=defaultWork(w.name||'未命名作品');
+        /* 同名标签用队列消费（02/03 组都有"角色正视图"等），避免多个槽共享一个图片键 */
+        const oldMap={};
+        for(const g of w.groups||[])for(const sl of g.slots||[]){
+          (oldMap[sl.label]=oldMap[sl.label]||[]).push(sl.id);
+        }
+        for(const g of nw.groups)for(const s of g.slots||[]){
+          const list=oldMap[s.label];
+          if(list&&list.length)s.id=list.shift();
+        }
+        const used=new Set();
+        for(const g of nw.groups)for(const s of g.slots||[])used.add(s.id);
+        for(const g of w.groups||[])for(const sl of g.slots||[])if(!used.has(sl.id))orphanKeys.push(sl.id);
+        const oldSum=(w.groups||[]).find(g=>g.type==='summary');
+        if(oldSum&&oldSum.items){const ng=nw.groups.find(g=>g.type==='summary');if(ng)ng.items=oldSum.items.slice();}
+        return nw;
+      });
+      const st={sub:o.sub||'3D CHARACTER · EFFECT RENDER',outlineTitle:o.outlineTitle||'作品大纲',works};
+      if(!VIEW_MODE)localStorage.setItem(LS,JSON.stringify(st));
+      if(!VIEW_MODE)localStorage.removeItem('pf_v2');
+      return st;
+    }
+  }catch(e){}
+  /* 更旧 pf_v1：章节 → 作品，卡片 → 窗口 */
+  try{
+    const o=JSON.parse(localStorage.getItem('pf_v1'));
+    if(o&&Array.isArray(o.sections)&&o.sections.length){
+      const works=o.sections.map(sec=>({
+        id:sec.id||newId('w'),name:sec.title||'作品',
+        groups:[{id:newId('g'),no:'01',title:'3D角色效果主图',en:'EFFECT RENDER',layout:'gg2',
+          slots:(sec.blocks||[]).map(b=>({id:b.id,label:b.label||'小窗口',hint:b.hint||HINT_DEF,ratio:b.ratio||'4/3',fit:b.fit||'cover'}))}]
+      }));
+      const st={sub:o.sub||'3D CHARACTER · EFFECT RENDER',outlineTitle:o.outlineTitle||'作品大纲',works};
+      if(!VIEW_MODE)localStorage.setItem(LS,JSON.stringify(st));
+      if(!VIEW_MODE)localStorage.removeItem('pf_v1');
+      return st;
+    }
+  }catch(e){}
+  return defaultState();
+}
+let state=loadState();
+if(typeof state.outlineTitle!=='string')state.outlineTitle='作品大纲';
+/* 为已有作品补齐“视频预览”小章节，并始终放在第一个作品模块之前。 */
+function makeVideoGroup(){
+  return {id:newId('g'),no:'00',title:'视频预览',en:'VIDEO PREVIEW',type:'video',layout:'video-slots',slots:[
+    {id:newId('v'),kind:'video',label:'视频预览',hint:'点击 / 拖入视频 · 建议 16:9 横向视频',ratio:'16/9',fit:'contain'}
+  ]};
+}
+(function ensureVideoGroups(){
+  let changed=false;
+  for(const w of state.works||[]){
+    const vi=(w.groups||[]).findIndex(g=>g.type==='video');
+    if(vi<0){w.groups=w.groups||[];w.groups.unshift(makeVideoGroup());changed=true;}
+    else if(vi>0){const [vg]=w.groups.splice(vi,1);w.groups.unshift(vg);changed=true;}
+    const vg=w.groups[0];
+    if(vg){vg.no='00';vg.type='video';vg.layout='video-slots';vg.slots=vg.slots||[];
+      for(const sl of vg.slots){if(!sl.kind){sl.kind='video';changed=true;}}
+    }
+  }
+  if(changed)save();
+})();
+function inferSlotSize(g,sl){
+  if(SIZE_VALUES.includes(sl.size))return sl.size;
+  if(g.layout==='video-slots')return 'medium';
+  if(sl.span)return g.layout==='gg2'?'large':'medium';
+  if(g.layout==='gg3'||g.layout==='gg4')return 'small';
+  return 'medium';
+}
+(function sanitizeSlotSizes(){
+  let changed=false;
+  for(const w of state.works||[])for(const g of w.groups||[])for(const sl of g.slots||[]){
+    const size=inferSlotSize(g,sl);
+    if(sl.size!==size){sl.size=size;changed=true;}
+  }
+  if(changed)save();
+})();
+function save(){
+  /* 编辑版每次结构、文字、比例、顺序或媒体变更都会立即写入本地存储。展示版永不写回。 */
+  if(VIEW_MODE)return;
+  try{localStorage.setItem(LS,JSON.stringify(state));markSaved();}
+  catch(e){console.error('自动保存失败',e);toast('自动保存失败，请检查浏览器存储空间');}
+}
+/* 迁移后旧图片键孤儿清理列表（init 中 openDB 成功后执行） */
+let orphanKeys=[];
+
+/* 清洗历史数据里的非法比例（"3:4 竖图" → "3/4"），并自动保存 */
+function sanitizeRatio(r){
+  if(typeof r==='string'){
+    const m=r.match(/^(\d+(?:\.\d+)?)[:/](\d+(?:\.\d+)?)/);
+    if(m)return m[1]+'/'+m[2];
+    if(/^\d+(\.\d+)?\/\d+(\.\d+)?$/.test(r))return r;
+  }
+  return '4/3';
+}
+(function sanitizeState(){
+  let changed=false;
+  for(const w of state.works)for(const g of w.groups)for(const s of g.slots||[]){
+    const r=sanitizeRatio(s.ratio);
+    if(r!==s.ratio){s.ratio=r;changed=true;}
+  }
+  if(changed)save();
+})();
+/* JS 显式定高：按窗口实际宽度 × 比例计算高度，任何浏览器/任何情况都保证比例 */
+function parseRatio(r){
+  const m=String(r||'').match(/^(\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/);
+  return m?(parseFloat(m[1])/parseFloat(m[2])):(4/3);
+}
+function fixSlotHeights(){
+  document.querySelectorAll('.slot[data-id]').forEach(el=>{
+    const sl=findSlot(el.dataset.id);
+    if(!sl)return;
+    const w=el.clientWidth||el.getBoundingClientRect().width;
+    if(w>10)el.style.height=Math.round(w/parseRatio(sl.ratio))+'px';
+  });
+}
+
+/* ---------- IndexedDB ---------- */
+let db=null;
+function openDB(){if(EMBEDDED_SHARE)return Promise.resolve(null);return new Promise((res,rej)=>{const r=indexedDB.open('pfDB',1);r.onupgradeneeded=()=>r.result.createObjectStore('imgs');r.onsuccess=()=>{db=r.result;res(db);};r.onerror=()=>rej(r.error);});}
+function idbPut(k,v){if(!db)return Promise.reject(new Error('本地存储不可用'));return new Promise((res,rej)=>{const tx=db.transaction('imgs','readwrite');tx.objectStore('imgs').put(v,k);tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
+function idbGet(k){if(!db)return Promise.reject(new Error('本地存储不可用'));return new Promise((res,rej)=>{const tx=db.transaction('imgs','readonly');const q=tx.objectStore('imgs').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);});}
+function idbDel(k){if(!db)return Promise.reject(new Error('本地存储不可用'));return new Promise((res,rej)=>{const tx=db.transaction('imgs','readwrite');tx.objectStore('imgs').delete(k);tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
+function idbClear(){if(!db)return Promise.reject(new Error('本地存储不可用'));return new Promise((res,rej)=>{const tx=db.transaction('imgs','readwrite');tx.objectStore('imgs').clear();tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
+
+/* ---------- 渲染 ---------- */
+const main=document.getElementById('main');
+const outlineTitleEl=document.getElementById('outlineTitle');
+const outlineList=document.getElementById('outlineList');
+let workEls=[];
+let activeWorkId=state.works[0]?.id||null;
+function esc(s){return (s||'').replace(/</g,'&lt;');}
+function updateOutlineLabels(){
+  if(!outlineList)return;
+  state.works.forEach(w=>{
+    const el=outlineList.querySelector(`.outline-item[data-work-id="${w.id}"] .outline-name`);
+    if(el)el.textContent=w.name||'未命名作品';
+  });
+}
+function setOutlineActive(id){
+  if(!outlineList)return;
+  outlineList.querySelectorAll('.outline-item').forEach(item=>item.classList.toggle('active',item.dataset.workId===id));
+}
+function updateOutlineActive(){
+  setOutlineActive(activeWorkId||'');
+}
+function applyWorkView(animate=false){
+  const active=document.getElementById(activeWorkId);
+  workEls.forEach(el=>{
+    const selected=el===active;
+    el.classList.toggle('active',selected);
+    if(selected){
+      el.classList.remove('out');
+      if(animate){
+        el.classList.remove('page-in');
+        void el.offsetWidth;
+        el.classList.add('page-in');
+      }
+    }else{
+      el.classList.remove('in','out','page-in');
+    }
+  });
+  updateOutlineActive();
+}
+function switchWork(id){
+  if(!state.works.some(w=>w.id===id))return;
+  document.querySelectorAll('.work video').forEach(video=>{try{video.pause();}catch(e){}});
+  activeWorkId=id;
+  applyWorkView(true);
+  const target=document.getElementById(id);
+  if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
+  requestAnimationFrame(revealCheck);
+}
+function buildOutline(){
+  if(!outlineList)return;
+  outlineList.innerHTML='';
+  if(!state.works.length){
+    outlineList.innerHTML='<div class="outline-empty">暂无作品 · 使用右下角按钮新增作品</div>';
+    return;
+  }
+  state.works.forEach((w,i)=>{
+    const item=document.createElement('button');
+    item.type='button';
+    item.className='outline-item';
+    item.dataset.workId=w.id;
+    const no=document.createElement('span');
+    no.className='outline-no';
+    no.textContent=String(i+1).padStart(2,'0');
+    const name=document.createElement('span');
+    name.className='outline-name';
+    name.textContent=w.name||'未命名作品';
+    const view=document.createElement('span');
+    view.className='outline-view';
+    view.textContent='VIEW';
+    item.append(no,name,view);
+    outlineList.appendChild(item);
+  });
+  updateOutlineActive();
+}
+outlineList?.addEventListener('click',e=>{
+  const item=e.target.closest('.outline-item');
+  if(!item)return;
+  const target=document.getElementById(item.dataset.workId);
+  if(!target)return;
+  switchWork(item.dataset.workId);
+});
+
+/* ---------- 图片独立预览 / 缩放 ---------- */
+const imageLightbox=document.getElementById('imageLightbox');
+const lightboxImage=document.getElementById('lightboxImage');
+const lightboxStage=document.getElementById('lightboxStage');
+const zoomValue=document.getElementById('zoomValue');
+let lightboxScale=1,lightboxX=0,lightboxY=0;
+let lightboxDragging=false,lightboxPointerId=null,lightboxStartX=0,lightboxStartY=0,lightboxOriginX=0,lightboxOriginY=0;
+function updateLightboxTransform(){
+  if(!lightboxImage)return;
+  lightboxImage.style.transform=`translate3d(${lightboxX}px,${lightboxY}px,0) scale(${lightboxScale})`;
+  if(zoomValue)zoomValue.textContent=Math.round(lightboxScale*100)+'%';
+}
+function setLightboxScale(value){
+  lightboxScale=Math.max(.25,Math.min(4,Number(value)||1));
+  updateLightboxTransform();
+}
+function resetLightboxView(){lightboxX=0;lightboxY=0;setLightboxScale(1);}
+function openImagePreview(img){
+  if(!img||img.hidden||!img.src||!imageLightbox)return;
+  lightboxImage.src=img.src;
+  lightboxImage.alt=img.alt||img.closest('.slot')?.querySelector('.s-label')?.textContent||'图片预览';
+  resetLightboxView();
+  imageLightbox.classList.add('open');
+  imageLightbox.setAttribute('aria-hidden','false');
+  document.body.classList.add('lightbox-open');
+}
+function closeImagePreview(){
+  if(!imageLightbox)return;
+  imageLightbox.classList.remove('open');
+  imageLightbox.setAttribute('aria-hidden','true');
+  document.body.classList.remove('lightbox-open');
+  lightboxImage.removeAttribute('src');
+  lightboxDragging=false;
+}
+imageLightbox?.addEventListener('click',e=>{
+  if(e.target.closest('[data-lightbox-close]'))closeImagePreview();
+  if(e.target.closest('[data-zoom-in]'))setLightboxScale(lightboxScale+.25);
+  if(e.target.closest('[data-zoom-out]'))setLightboxScale(lightboxScale-.25);
+  if(e.target.closest('[data-zoom-reset]'))resetLightboxView();
+});
+lightboxStage?.addEventListener('wheel',e=>{
+  if(!imageLightbox.classList.contains('open'))return;
+  e.preventDefault();
+  setLightboxScale(lightboxScale+(e.deltaY<0?.15:-.15));
+},{passive:false});
+lightboxStage?.addEventListener('pointerdown',e=>{
+  if(e.button!==0)return;
+  lightboxDragging=true;lightboxPointerId=e.pointerId;
+  lightboxStartX=e.clientX;lightboxStartY=e.clientY;lightboxOriginX=lightboxX;lightboxOriginY=lightboxY;
+  lightboxStage.classList.add('dragging');
+  lightboxStage.setPointerCapture?.(e.pointerId);
+});
+lightboxStage?.addEventListener('pointermove',e=>{
+  if(!lightboxDragging||e.pointerId!==lightboxPointerId)return;
+  lightboxX=lightboxOriginX+e.clientX-lightboxStartX;
+  lightboxY=lightboxOriginY+e.clientY-lightboxStartY;
+  updateLightboxTransform();
+});
+function stopLightboxDrag(e){
+  if(!lightboxDragging||e.pointerId!==lightboxPointerId)return;
+  lightboxDragging=false;lightboxStage.classList.remove('dragging');
+  lightboxStage.releasePointerCapture?.(e.pointerId);
+}
+lightboxStage?.addEventListener('pointerup',stopLightboxDrag);
+lightboxStage?.addEventListener('pointercancel',stopLightboxDrag);
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&imageLightbox?.classList.contains('open')){e.preventDefault();closeImagePreview();}
+});
+function slotHTML(sl){
+  const isVideo=sl.kind==='video';
+  const size=SIZE_VALUES.includes(sl.size)?sl.size:'medium';
+  const ratio=sl.ratio||'16/9';
+  const media=isVideo?`<video hidden playsinline controls preload="metadata" aria-label="${esc(sl.label)}"></video>`:'<img hidden alt="">';
+  const uploadTitle=isVideo?'上传 / 替换视频':'上传 / 替换图片';
+  const ratioOptions=RATIO_OPTIONS.map(([value,label])=>`<option value="${value}"${ratio===value?' selected':''}>${label}</option>`).join('');
+  const sizeOptions=SIZE_VALUES.map(value=>`<option value="${value}"${size===value?' selected':''}>${SIZE_LABELS[value]}</option>`).join('');
+  return `
+    <div class="s-wrap ${isVideo?'video-wrap ':''}${sl.span?'span2':''}" draggable="true" data-slot-id="${esc(sl.id)}" data-size="${size}" title="拖动以调整位置">
+      <div class="slot ${isVideo?'video-slot':''} empty" data-id="${esc(sl.id)}" data-kind="${isVideo?'video':'image'}" style="--r:${ratio};aspect-ratio:${ratio}">
+        <div class="s-ops">
+          <button class="s-up" title="${uploadTitle}">↑</button>
+          <select class="s-ratio" title="调整比例" aria-label="调整比例">${ratioOptions}</select>
+          <select class="s-size" title="调整大小" aria-label="调整大小">${sizeOptions}</select>
+          <button class="s-fit ${sl.fit==='contain'?'on':''}" title="铺满 / 完整">适</button>
+          <button class="s-del" title="有媒体删媒体，无媒体删窗口">×</button>
+        </div>
+        <span class="s-plus"></span>
+        <span class="s-label" contenteditable="true" spellcheck="false">${esc(sl.label)}</span>
+        <span class="s-hint"><span contenteditable="true" spellcheck="false">${esc(sl.hint)}</span></span>
+        <i class="imgw">${media}</i>
+      </div>
+      <div class="s-cap" contenteditable="true" spellcheck="false" data-cap="${esc(sl.id)}">${esc(sl.cap||'')}</div>
+    </div>`;
+}
+function groupHTML(g,gi){
+  if(g.type==='summary'){
+    return `
+      <section class="group" data-id="${esc(g.id)}">
+        <div class="g-head">
+          <span class="g-no" contenteditable="true" spellcheck="false">${esc(g.no)}</span>
+          <h3 class="g-title" contenteditable="true" spellcheck="false">${esc(g.title)}</h3>
+          <span class="g-en" contenteditable="true" spellcheck="false">${esc(g.en)}</span>
+          <div class="g-ops">
+            <button class="g-del" title="删除此小章节">×</button>
+          </div>
+        </div>
+        <div class="summary-panel">
+          <ul class="s-list"></ul>
+          <button class="add-item">+ 添加条目</button>
+        </div>
+      </section>`;
+  }
+  return `
+    <section class="group" data-id="${esc(g.id)}">
+      <div class="g-head">
+        <span class="g-no" contenteditable="true" spellcheck="false">${esc(g.no)}</span>
+        <h3 class="g-title" contenteditable="true" spellcheck="false">${esc(g.title)}</h3>
+        <span class="g-en" contenteditable="true" spellcheck="false">${esc(g.en)}</span>
+        <div class="g-ops">
+          <button class="g-del" title="删除此小章节">×</button>
+        </div>
+      </div>
+      <div class="slots ${g.layout||''}">
+        ${g.slots.map(slotHTML).join('')}
+        <button class="add-slot">${g.type==='video'?'＋ 新增视频':'＋ 新增窗口'}</button>
+      </div>
+    </section>`;
+}
+function applyViewMode(){
+  if(!VIEW_MODE)return;
+  document.body.classList.add('view-mode');
+  document.querySelectorAll('.theme-bar').forEach(el=>el.setAttribute('aria-hidden','true'));
+  document.querySelectorAll('[contenteditable="true"]').forEach(el=>{
+    el.setAttribute('contenteditable','false');
+    el.removeAttribute('spellcheck');
+  });
+  const badge=document.getElementById('viewBadge');
+  if(badge)badge.style.display='inline-flex';
+  const saveState=document.getElementById('saveState');
+  if(saveState)saveState.textContent='展示版 · 只读';
+}
+function build(){
+  main.innerHTML='';
+  workEls=[];
+  if(!state.works.some(w=>w.id===activeWorkId))activeWorkId=state.works[0]?.id||null;
+  state.works.forEach((w,wi)=>{
+    const el=document.createElement('section');
+    el.className='work';el.id=w.id;el.dataset.idx=wi;
+    el.innerHTML=`
+      <div class="w-head">
+        <h2 class="w-name" contenteditable="true" spellcheck="false">${esc(w.name)}</h2>
+        <div class="w-ops">
+          <button class="w-addg">＋ 小章节</button>
+          <button class="w-del">删除</button>
+        </div>
+      </div>
+      <div class="groups">
+        ${w.groups.map(groupHTML).join('')}
+      </div>`;
+    main.appendChild(el);
+    workEls.push(el);
+    /* 总结条目填充 */
+    el.querySelectorAll('.summary-panel').forEach((panel,pi)=>{
+      const g=w.groups.filter(x=>x.type==='summary')[pi];
+      if(!g)return;
+      const ul=panel.querySelector('.s-list');
+      (g.items||['在此输入制作总结…']).forEach(t=>{
+        const li=document.createElement('li');
+        li.innerHTML=`<span class="stxt" contenteditable="true" spellcheck="false"></span><button class="srm" title="删除">×</button>`;
+        li.querySelector('.stxt').textContent=t;
+        ul.appendChild(li);
+      });
+    });
+  });
+  applyViewMode();
+  buildOutline();
+  applyWorkView(false);
+}
+function rebuild(stayIdx,keepPos){
+  const prevY=window.scrollY;
+  if(stayIdx!=null&&state.works[stayIdx])activeWorkId=state.works[stayIdx].id;
+  build();
+  initReveal();
+  restoreImages();
+  fixSlotHeights();
+  if(keepPos){
+    /* 保持当前滚动位置（瞬时恢复，禁用平滑防止"翻动感"） */
+    const h=document.documentElement,old=h.style.scrollBehavior;
+    h.style.scrollBehavior='auto';
+    window.scrollTo(0,prevY);
+    h.style.scrollBehavior=old;
+  }else{
+    const el=activeWorkId?document.getElementById(activeWorkId):null;
+    if(el)window.scrollTo({top:el.offsetTop-20});
+  }
+}
+
+/* ---------- 上传 / 删除图片 ---------- */
+const fileInput=document.getElementById('fileInput');
+let pickingFor=null;
+const uploading=new Set(); /* 上传中窗口集合，防同一窗口并发覆盖 */
+const MAX_FILE_SIZE=120*1024*1024; /* 单张图片上限 120MB */
+const MAX_VIDEO_SIZE=500*1024*1024; /* 单个视频上限 500MB，实际受浏览器本地存储配额限制 */
+function pickFile(id){
+  pickingFor=id;
+  const sl=findSlot(id);
+  fileInput.accept=sl&&sl.kind==='video'?'video/*':'image/*';
+  try{fileInput.value='';fileInput.click();}
+  catch(e){toast(sl&&sl.kind==='video'?'请直接拖拽视频到窗口':'请直接拖拽图片到窗口');}
+}
+fileInput.addEventListener('change',()=>{
+  const f=fileInput.files&&fileInput.files[0];
+  const pid=pickingFor;
+  pickingFor=null;
+  if(f&&pid)handleFile(pid,f);
+});
+function loadImgEl(u){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=()=>rej(new Error('decode_failed'));im.src=u;});}
+async function decodeSource(blob){
+  try{
+    const bmp=await createImageBitmap(blob,{imageOrientation:'from-image'});
+    return {src:bmp,w:bmp.width,h:bmp.height,close:()=>bmp.close()};
+  }catch(e){
+    const u=URL.createObjectURL(blob);
+    try{
+      const im=await loadImgEl(u);
+      return {src:im,w:im.naturalWidth,h:im.naturalHeight,close:()=>URL.revokeObjectURL(u)};
+    }catch(e2){
+      URL.revokeObjectURL(u);
+      throw new Error('decode_failed');
+    }
+  }
+}
+function drawToBlob(src,w,h,type,q){
+  return new Promise((res,rej)=>{
+    const c=document.createElement('canvas');
+    c.width=w;c.height=h;
+    const ctx=c.getContext('2d');
+    if(type==='image/jpeg'){ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);}
+    ctx.drawImage(src,0,0,w,h);
+    c.toBlob(b=>b?res(b):rej(new Error('编码失败')),type,q);
+  });
+}
+async function detectAlpha(src,w,h){
+  try{
+    const c=document.createElement('canvas');
+    const s=64/Math.max(w,h);
+    c.width=Math.max(1,Math.round(w*s));c.height=Math.max(1,Math.round(h*s));
+    const ctx=c.getContext('2d');
+    ctx.drawImage(src,0,0,c.width,c.height);
+    const d=ctx.getImageData(0,0,c.width,c.height).data;
+    for(let i=3;i<d.length;i+=4){if(d[i]<250)return true;}
+  }catch(e){}
+  return false;
+}
+async function processImage(file){
+  const d=await decodeSource(file);
+  let w=d.w,h=d.h;
+  const MAX=8192; /* 浏览器 canvas 安全上限，覆盖 8K；超过才缩放 */
+  const scaled=w>MAX||h>MAX;
+  if(scaled){const s=MAX/Math.max(w,h);w=Math.round(w*s);h=Math.round(h*s);}
+  const hasA=file.type==='image/jpeg'?false:await detectAlpha(d.src,d.w,d.h);
+  const type=hasA?'image/png':'image/jpeg';
+  const full=await drawToBlob(d.src,w,h,type,0.97); /* 全像素 + 高质量（≈视觉无损） */
+  /* 显示用小图（最长边≤1600），仅供屏幕显示防卡顿；full 保留全像素，尺寸完全不缩 */
+  let view=null,viewW=0;
+  if(Math.max(w,h)>1600){
+    const s2=1600/Math.max(w,h);
+    const vw=Math.round(w*s2),vh=Math.round(h*s2);
+    view=await drawToBlob(d.src,vw,vh,type,0.9);
+    viewW=vw;
+  }
+  d.close();
+  return {full,view,viewW,w,h,type,scaled};
+}
+async function handleFile(id,file){
+  if(!file){toast('无法读取文件');return;}
+  const sl=findSlot(id);
+  const isVideo=sl&&sl.kind==='video';
+  if(isVideo){return handleVideo(id,file);}
+  if(!file.type.startsWith('image/')){toast('该窗口仅支持图片文件（JPG / PNG / WebP 等）');return;}
+  if(file.size>MAX_FILE_SIZE){toast('图片超过 120MB 上限，请压缩后再上传');return;}
+  if(uploading.has(id)){toast('该窗口正在处理图片，请稍候');return;}
+  uploading.add(id);
+  try{
+    toast('图片处理中…');
+    const rec=await processImage(file);
+    await idbPut(id,rec);
+    renderImage(id);
+    toast((rec.type==='image/png'?'PNG 保透明':'JPEG 97% 高质量')+' · 全像素 '+rec.w+'×'+rec.h+(rec.scaled?'（超 8192px 已缩放）':''));
+    markSaved();
+  }catch(err){
+    const msg=String(err&&err.message||err);
+    if(msg==='decode_failed'||/decode|image/i.test(msg))toast('无法读取该图片，文件可能已损坏或格式不支持');
+    else if(/quota|QuotaExceeded/i.test(msg))toast('本地存储空间不足：图片过大或数量过多，请删除部分图片');
+    else toast('上传失败：'+msg);
+  }finally{
+    uploading.delete(id);
+  }
+}
+async function handleVideo(id,file){
+  if(!file.type.startsWith('video/')){toast('该窗口仅支持视频文件（MP4 / WebM / MOV 等）');return;}
+  if(file.size>MAX_VIDEO_SIZE){toast('视频超过 500MB 上限，请压缩后再上传');return;}
+  if(uploading.has(id)){toast('该窗口正在处理视频，请稍候');return;}
+  uploading.add(id);
+  try{
+    toast('视频保存中…');
+    await idbPut(id,{kind:'video',blob:file,type:file.type,name:file.name,size:file.size});
+    await renderVideo(id);
+    toast('视频已保存 · '+formatBytes(file.size));
+    markSaved();
+  }catch(err){
+    const msg=String(err&&err.message||err);
+    if(/quota|QuotaExceeded/i.test(msg))toast('本地存储空间不足：视频过大或数量过多，请删除部分媒体');
+    else toast('视频上传失败：'+msg);
+  }finally{
+    uploading.delete(id);
+  }
+}
+function formatBytes(n){
+  if(n<1024*1024)return Math.round(n/1024)+' KB';
+  if(n<1024*1024*1024)return (n/1024/1024).toFixed(1)+' MB';
+  return (n/1024/1024/1024).toFixed(2)+' GB';
+}
+function recDisplayBlob(rec){return (rec&&rec.view)?rec.view:(rec&&rec.full)?rec.full:rec;}
+function embeddedMedia(id){
+  const item=EMBEDDED_SHARE&&EMBEDDED_SHARE.media&&EMBEDDED_SHARE.media[id];
+  return item||null;
+}
+async function mediaRecord(id){
+  const embedded=embeddedMedia(id);
+  if(embedded)return embedded;
+  return idbGet(id);
+}
+async function renderImage(id){
+  const el=document.querySelector(`.slot[data-id="${id}"]`);
+  if(!el)return;
+  const rec=await mediaRecord(id);
+  if(!rec)return;
+  /* 重申比例，防止槽位高度塌陷 */
+  const sl=findSlot(id);
+  if(sl&&sl.ratio){el.style.aspectRatio=sl.ratio;el.style.setProperty('--r',sl.ratio);}
+  const img=el.querySelector('img');
+  if(!img)return;
+  if(img.src&&img.src.startsWith('blob:'))URL.revokeObjectURL(img.src);
+  img.src=rec.dataUrl||URL.createObjectURL(recDisplayBlob(rec));
+  img.hidden=false;
+  el.classList.remove('empty');el.classList.add('filled');
+  applyFit(el);
+}
+async function renderVideo(id){
+  const el=document.querySelector(`.slot[data-id="${id}"]`);
+  if(!el)return;
+  const rec=await mediaRecord(id);
+  if(!rec)return;
+  const sl=findSlot(id);
+  if(sl&&sl.ratio){el.style.aspectRatio=sl.ratio;el.style.setProperty('--r',sl.ratio);}
+  const video=el.querySelector('video');
+  if(!video)return;
+  if(video.src&&video.src.startsWith('blob:'))URL.revokeObjectURL(video.src);
+  video.src=rec.dataUrl||URL.createObjectURL(rec.blob||rec);
+  video.hidden=false;
+  video.load();
+  el.classList.remove('empty');el.classList.add('filled');
+  applyFit(el);
+}
+async function removeMedia(id){
+  await idbDel(id);
+  const el=document.querySelector(`.slot[data-id="${id}"]`);
+  if(!el)return;
+  const media=el.querySelector('img,video');
+  if(media&&media.src&&media.src.startsWith('blob:'))URL.revokeObjectURL(media.src);
+  if(media){
+    if(activeVideo===media)activeVideo=null;
+    media.pause?.();media.hidden=true;media.removeAttribute('src');media.load?.();
+  }
+  el.classList.add('empty');el.classList.remove('filled');
+  const sl=findSlot(id);
+  if(sl)sl.fit=sl.kind==='video'?'contain':'cover';
+  save();
+  toast(sl&&sl.kind==='video'?'视频已删除':'图片已删除');
+}
+function findSlot(id){
+  for(const w of state.works)for(const g of w.groups){
+    const sl=(g.slots||[]).find(x=>x.id===id);
+    if(sl)return sl;
+  }
+  return null;
+}
+function applyFit(el){
+  const sl=findSlot(el.dataset.id);
+  const media=el.querySelector('img,video');
+  if(media)media.classList.toggle('contain',sl&&sl.fit==='contain');
+  el.querySelector('.s-fit').classList.toggle('on',sl&&sl.fit==='contain');
+}
+function applySlotLayout(el,sl){
+  if(!el||!sl)return;
+  const ratio=sl.ratio||'16/9';
+  const size=SIZE_VALUES.includes(sl.size)?sl.size:'medium';
+  el.style.aspectRatio=ratio;
+  el.style.setProperty('--r',ratio);
+  const wrap=el.closest('.s-wrap');
+  if(wrap)wrap.dataset.size=size;
+  const ratioSelect=el.querySelector('.s-ratio');
+  const sizeSelect=el.querySelector('.s-size');
+  if(ratioSelect)ratioSelect.value=ratio;
+  if(sizeSelect)sizeSelect.value=size;
+  fixSlotHeights();
+}
+async function restoreImages(){
+  for(const w of state.works)for(const g of w.groups){
+    for(const sl of (g.slots||[])){
+      try{
+        const rec=await mediaRecord(sl.id);
+        if(rec){
+          if(sl.kind==='video'||rec.kind==='video')renderVideo(sl.id);
+          else renderImage(sl.id);
+        }
+      }catch(e){}
+    }
+  }
+}
+
+/* ---------- 结构操作 ---------- */
+function addWork(){
+  state.works.push(defaultWork('未命名作品 '+String(state.works.length+1).padStart(2,'0')));
+  save();rebuild(state.works.length-1);
+  toast('已新增大章节 · 全套结构就绪');
+}
+function delWork(wId){
+  const wi=state.works.findIndex(x=>x.id===wId);
+  if(wi<0)return;
+  const w=state.works[wi];
+  if(!confirm(`删除作品「${w.name}」？其中所有图片会一并移除。`))return;
+  for(const g of w.groups)for(const sl of (g.slots||[]))idbDel(sl.id);
+  state.works.splice(wi,1);
+  save();rebuild(Math.min(wi,state.works.length-1));
+  toast('已删除');
+}
+function addGroup(wId){
+  const wi=state.works.findIndex(x=>x.id===wId);
+  if(wi<0)return;
+  const w=state.works[wi];
+  w.groups.push({id:newId('g'),no:String(w.groups.length+1).padStart(2,'0'),title:'新小章节',en:'NEW GROUP',layout:'gg2',slots:[
+    {id:newId('s'),label:'小窗口 1',hint:HINT_DEF,ratio:'16/9',fit:'cover',size:'medium'},
+    {id:newId('s'),label:'小窗口 2',hint:HINT_DEF,ratio:'16/9',fit:'cover',size:'medium'}
+  ]});
+  renumberG(w);
+  save();rebuild(wi,true);
+  toast('已新增小章节');
+}
+function delGroup(wId,gi){
+  const wi=state.works.findIndex(x=>x.id===wId);
+  if(wi<0)return;
+  const w=state.works[wi],g=w.groups[gi];
+  if(!confirm(`删除小章节「${g.title}」？其中所有图片会一并移除。`))return;
+  for(const sl of (g.slots||[]))idbDel(sl.id);
+  w.groups.splice(gi,1);
+  renumberG(w);
+  save();rebuild(wi,true);
+  toast('已删除');
+}
+function addSlot(wId,gi){
+  const wi=state.works.findIndex(x=>x.id===wId);
+  if(wi<0)return;
+  const g=state.works[wi].groups[gi];
+  if(!g.slots)g.slots=[];
+  g.slots.push({id:newId(g.type==='video'?'v':'s'),kind:g.type==='video'?'video':'image',label:g.type==='video'?'新视频':'新窗口',hint:g.type==='video'?'点击 / 拖入视频 · 建议 16:9 横向视频':HINT_DEF,ratio:'16/9',fit:g.type==='video'?'contain':'cover',size:'medium'});
+  save();rebuild(wi,true);
+  toast('已新增窗口');
+}
+function delSlot(id){
+  for(const w of state.works)for(const g of w.groups){
+    const i=(g.slots||[]).findIndex(x=>x.id===id);
+    if(i>=0){
+      if(!confirm('删除这个窗口？其中的图片会一并移除。'))return;
+      g.slots.splice(i,1);
+      idbDel(id);
+      save();rebuild(state.works.indexOf(w),true);
+      toast('已删除');
+      return;
+    }
+  }
+}
+function renumberG(w){
+  w.groups.forEach((g,i)=>{g.no=String(i+1).padStart(2,'0');});
+}
+
+/* ---------- 文件拖拽上传 ---------- */
+main.addEventListener('dragover',e=>{
+  if(VIEW_MODE)return;
+  if(!(e.dataTransfer.types&&Array.prototype.indexOf.call(e.dataTransfer.types,'Files')>=0))return;
+  e.preventDefault(); /* 非槽位区域也拦截，防止浏览器默认打开文件跳页 */
+  const slot=e.target.closest('.slot');
+  if(slot)slot.classList.add('dragover');
+});
+main.addEventListener('dragleave',e=>{
+  if(VIEW_MODE)return;
+  const slot=e.target.closest('.slot');
+  if(slot)slot.classList.remove('dragover');
+});
+main.addEventListener('drop',e=>{
+  if(VIEW_MODE)return;
+  if(!(e.dataTransfer.types&&Array.prototype.indexOf.call(e.dataTransfer.types,'Files')>=0))return;
+  e.preventDefault();
+  const slot=e.target.closest('.slot');
+  if(slot){
+    slot.classList.remove('dragover');
+    const f=e.dataTransfer.files&&e.dataTransfer.files[0];
+    if(f)handleFile(slot.dataset.id,f);
+  }
+});
+
+/* ---------- 小章节内拖动排序 ---------- */
+let sortDrag={wrap:null,id:null,group:null};
+let suppressImageClick=false;
+function clearSortIndicators(){
+  main.querySelectorAll('.s-wrap.drop-before,.s-wrap.drop-after').forEach(el=>el.classList.remove('drop-before','drop-after'));
+}
+function isFileDrag(e){
+  return !!(e.dataTransfer?.types&&Array.prototype.indexOf.call(e.dataTransfer.types,'Files')>=0);
+}
+function resetSortDrag(){
+  const hadDrag=!!sortDrag.wrap;
+  sortDrag.wrap?.classList.remove('sorting');
+  clearSortIndicators();
+  sortDrag={wrap:null,id:null,group:null};
+  if(hadDrag){
+    suppressImageClick=true;
+    setTimeout(()=>{suppressImageClick=false;},80);
+  }
+}
+main.addEventListener('dragstart',e=>{
+  if(VIEW_MODE)return;
+  const wrap=e.target.closest('.s-wrap[draggable="true"]');
+  if(!wrap||isFileDrag(e))return;
+  /* 编辑文字、操作按钮和视频原生控件保留各自行为，使用其它区域拖动排序。 */
+  if(e.target.closest('[contenteditable="true"],.s-ops,.s-cap')){e.preventDefault();return;}
+  const group=wrap.closest('.group');
+  if(!group)return;
+  sortDrag={wrap,id:wrap.dataset.slotId,group};
+  suppressImageClick=false;
+  e.dataTransfer.effectAllowed='move';
+  e.dataTransfer.setData('text/plain',wrap.dataset.slotId);
+  wrap.classList.add('sorting');
+});
+main.addEventListener('dragover',e=>{
+  if(VIEW_MODE)return;
+  if(!sortDrag.wrap||isFileDrag(e))return;
+  const target=e.target.closest('.s-wrap[draggable="true"]');
+  if(!target||target===sortDrag.wrap||target.closest('.group')!==sortDrag.group)return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect='move';
+  clearSortIndicators();
+  const r=target.getBoundingClientRect();
+  target.classList.add(e.clientY<r.top+r.height/2?'drop-before':'drop-after');
+});
+main.addEventListener('dragleave',e=>{
+  if(VIEW_MODE)return;
+  if(!sortDrag.wrap||isFileDrag(e))return;
+  const target=e.target.closest('.s-wrap[draggable="true"]');
+  if(target)target.classList.remove('drop-before','drop-after');
+});
+main.addEventListener('drop',e=>{
+  if(VIEW_MODE)return;
+  if(!sortDrag.wrap||isFileDrag(e))return;
+  const target=e.target.closest('.s-wrap[draggable="true"]');
+  if(!target||target===sortDrag.wrap||target.closest('.group')!==sortDrag.group){resetSortDrag();return;}
+  e.preventDefault();
+  const groupEl=sortDrag.group;
+  const wEl=groupEl.closest('.work');
+  const w=state.works.find(x=>x.id===wEl?.id);
+  const g=w?.groups.find(x=>x.id===groupEl.dataset.id);
+  if(!w||!g){resetSortDrag();return;}
+  const from=(g.slots||[]).findIndex(sl=>sl.id===sortDrag.id);
+  const targetIndex=(g.slots||[]).findIndex(sl=>sl.id===target.dataset.slotId);
+  if(from<0||targetIndex<0){resetSortDrag();return;}
+  const targetRect=target.getBoundingClientRect();
+  let to=targetIndex+(e.clientY>=targetRect.top+targetRect.height/2?1:0);
+  if(from<to)to--;
+  if(from!==to){
+    const [moved]=g.slots.splice(from,1);
+    g.slots.splice(to,0,moved);
+    save();
+    rebuild(state.works.indexOf(w),true);
+    toast('已调整窗口顺序');
+  }
+  resetSortDrag();
+});
+main.addEventListener('dragend',()=>{if(sortDrag.wrap)resetSortDrag();});
+
+/* ---------- 比例 / 大小设置 ---------- */
+main.addEventListener('change',e=>{
+  if(VIEW_MODE)return;
+  const select=e.target.closest('.s-ratio,.s-size');
+  if(!select)return;
+  const slotEl=select.closest('.slot');
+  const sl=slotEl&&findSlot(slotEl.dataset.id);
+  if(!slotEl||!sl)return;
+  if(select.classList.contains('s-ratio'))sl.ratio=select.value;
+  else if(SIZE_VALUES.includes(select.value))sl.size=select.value;
+  save();
+  applySlotLayout(slotEl,sl);
+  toast(select.classList.contains('s-ratio')?'已调整窗口比例':'已调整窗口大小');
+});
+
+/* ---------- 点击 / 输入委托 ---------- */
+let activeVideo=null;
+document.addEventListener('pointerdown',e=>{
+  activeVideo=e.target.closest('video')||null;
+},{capture:true});
+main.addEventListener('click',e=>{
+  if(VIEW_MODE){
+    const imageSlot=e.target.closest('.slot:not(.video-slot)');
+    if(imageSlot?.classList.contains('filled')&&e.target.closest('img'))openImagePreview(imageSlot.querySelector('img'));
+    return;
+  }
+  /* 下拉选项只负责调整比例/大小，不应继续落入窗口点击上传逻辑。 */
+  if(e.target.closest('.s-ratio,.s-size'))return;
+  const up=e.target.closest('.s-up');
+  if(up){pickFile(up.closest('.slot').dataset.id);return;}
+  const fit=e.target.closest('.s-fit');
+  if(fit){
+    const el=fit.closest('.slot');
+    const sl=findSlot(el.dataset.id);
+    if(sl){sl.fit=sl.fit==='contain'?'cover':'contain';save();applyFit(el);toast(sl.fit==='contain'?'完整显示':'铺满裁剪');}
+    return;
+  }
+  const sdel=e.target.closest('.s-del');
+  if(sdel){
+    const el=sdel.closest('.slot');
+    /* 有图：只删图片保留窗口；无图：删除整个窗口 */
+    if(el.classList.contains('filled'))removeMedia(el.dataset.id);
+    else delSlot(el.dataset.id);
+    return;
+  }
+  const gdel=e.target.closest('.g-del');
+  if(gdel){
+    const sec=gdel.closest('.work');
+    delGroup(sec.id,Array.prototype.indexOf.call(sec.querySelectorAll(':scope > .groups > .group'),gdel.closest('.group')));
+    return;
+  }
+  const waddg=e.target.closest('.w-addg');
+  if(waddg){addGroup(waddg.closest('.work').id);return;}
+  const wdel=e.target.closest('.w-del');
+  if(wdel){delWork(wdel.closest('.work').id);return;}
+  const addSlotBtn=e.target.closest('.add-slot');
+  if(addSlotBtn){
+    const sec=addSlotBtn.closest('.work'),g=addSlotBtn.closest('.group');
+    addSlot(sec.id,Array.prototype.indexOf.call(sec.querySelectorAll(':scope > .groups > .group'),g));
+    return;
+  }
+  const addItemBtn=e.target.closest('.add-item');
+  if(addItemBtn){
+    const panel=addItemBtn.closest('.summary-panel');
+    const g=findGroupByEl(panel.closest('.group'));
+    if(!g)return;
+    g.items=g.items||[];
+    g.items.push('新条目…');
+    const li=document.createElement('li');
+    li.innerHTML=`<span class="stxt" contenteditable="true" spellcheck="false"></span><button class="srm" title="删除">×</button>`;
+    li.querySelector('.stxt').textContent='新条目…';
+    panel.querySelector('.s-list').appendChild(li);
+    save();
+    return;
+  }
+  const imageSlot=e.target.closest('.slot:not(.video-slot)');
+  if(imageSlot&&imageSlot.classList.contains('filled')&&e.target.closest('img')){
+    if(suppressImageClick){suppressImageClick=false;return;}
+    openImagePreview(imageSlot.querySelector('img'));
+    return;
+  }
+  const videoSlot=e.target.closest('.video-slot');
+  if(videoSlot&&videoSlot.classList.contains('filled')){
+    /* 视频区域交给浏览器原生播放/暂停，不再触发文件选择器。 */
+    activeVideo=videoSlot.querySelector('video')||activeVideo;
+    return;
+  }
+  const slot=e.target.closest('.slot');
+  if(slot){
+    if(e.target.closest('[contenteditable="true"]'))return;
+    pickFile(slot.dataset.id);
+  }
+});
+/* 视频获得焦点后，左右方向键（以及数字小键盘 4/6）按 3 秒步进。 */
+document.addEventListener('keydown',e=>{
+  const focused=document.activeElement&&document.activeElement.closest?document.activeElement.closest('video'):null;
+  const video=focused||activeVideo;
+  if(!video||video.hidden||!video.src)return;
+  let delta=0;
+  if(e.key==='ArrowRight'||e.code==='Numpad6')delta=3;
+  else if(e.key==='ArrowLeft'||e.code==='Numpad4')delta=-3;
+  if(!delta)return;
+  e.preventDefault();
+  e.stopPropagation();
+  const duration=Number.isFinite(video.duration)?video.duration:Infinity;
+  video.currentTime=Math.max(0,Math.min(duration,video.currentTime+delta));
+});
+function findGroupByEl(groupEl){
+  const w=state.works.find(x=>x.id===groupEl.closest('.work').id);
+  return w&&w.groups.find(x=>x.id===groupEl.dataset.id);
+}
+main.addEventListener('input',e=>{
+  if(VIEW_MODE)return;
+  const t=e.target.closest('[contenteditable="true"]');
+  if(!t)return;
+  const slotEl=t.closest('.slot');
+  if(slotEl){
+    const sl=findSlot(slotEl.dataset.id);
+    if(!sl)return;
+    if(t.classList.contains('s-label'))sl.label=t.textContent;
+    else sl.hint=t.textContent;
+    save();
+    return;
+  }
+  /* 图片下方说明文字 */
+  const capEl=t.closest('.s-cap');
+  if(capEl){
+    const sl=findSlot(capEl.dataset.cap);
+    if(sl){sl.cap=t.textContent;save();}
+    return;
+  }
+  const stxt=t.closest('.stxt');
+  if(stxt){
+    const g=findGroupByEl(stxt.closest('.group'));
+    if(!g)return;
+    const idx=Array.prototype.indexOf.call(stxt.closest('.s-list').children,stxt.parentElement);
+    if(g.items&&g.items[idx]!==undefined){g.items[idx]=stxt.textContent;save();}
+    return;
+  }
+  const groupEl=t.closest('.group');
+  if(groupEl){
+    const g=findGroupByEl(groupEl);
+    if(!g)return;
+    if(t.classList.contains('g-title'))g.title=t.textContent;
+    else if(t.classList.contains('g-en'))g.en=t.textContent;
+    else if(t.classList.contains('g-no'))g.no=t.textContent;
+    save();
+    return;
+  }
+  const wEl=t.closest('.work');
+  if(wEl){
+    const w=state.works.find(x=>x.id===wEl.id);
+    if(!w)return;
+    if(t.classList.contains('w-name')){w.name=t.textContent;updateOutlineLabels();}
+    save();
+  }
+});
+main.addEventListener('click',e=>{
+  if(VIEW_MODE)return;
+  const rm=e.target.closest('.srm');
+  if(!rm)return;
+  const g=findGroupByEl(rm.closest('.group'));
+  if(!g)return;
+  const li=rm.closest('li');
+  const idx=Array.prototype.indexOf.call(li.parentElement.children,li);
+  if(g.items)g.items.splice(idx,1);
+  li.remove();
+  save();
+});
+
+/* ---------- 滚动揭示（scroll/resize 驱动，进出视口反复播放） ---------- */
+let revealBound=false,rcPending=false;
+function revealCheck(){
+  if(rcPending)return;
+  rcPending=true;
+  requestAnimationFrame(()=>{
+    rcPending=false;
+    workEls.forEach(el=>{
+      const r=el.getBoundingClientRect();
+      const inView=r.top<innerHeight*.92&&r.bottom>0;
+      if(inView&&!el.classList.contains('in')){
+        clearTimeout(el._ot);el.classList.remove('out');el.classList.add('in');
+      }else if(!inView&&el.classList.contains('in')){
+        el.classList.add('out');
+        clearTimeout(el._ot);
+        el._ot=setTimeout(()=>{el.classList.remove('in','out');},420);
+      }
+    });
+    updateOutlineActive();
+  });
+}
+function initReveal(){
+  if(!revealBound){
+    revealBound=true;
+    window.addEventListener('scroll',revealCheck,{passive:true});
+    window.addEventListener('resize',revealCheck);
+  }
+  revealCheck();
+}
+
+/* ---------- 滚动视差：图片在框内随滚动流动（--py） ---------- */
+let pfScrolling=false;
+function onParallax(){
+  if(pfScrolling)return;
+  pfScrolling=true;
+  requestAnimationFrame(()=>{
+    pfScrolling=false;
+    document.querySelectorAll('.work').forEach(w=>{
+      const r=w.getBoundingClientRect();
+      if(r.bottom<0||r.top>innerHeight)return;
+      const prog=Math.max(-.5,Math.min(.5,(r.top+r.height/2-innerHeight/2)/innerHeight));
+      const py=(prog*-26).toFixed(1);
+      w.querySelectorAll('.imgw img:not(.contain)').forEach(img=>{
+        if(img.style.getPropertyValue('--py')!==py+'px')img.style.setProperty('--py',py+'px');
+      });
+    });
+  });
+}
+window.addEventListener('scroll',onParallax,{passive:true});
+
+/* ---------- 主题 / 状态 ---------- */
+function setTheme(t){
+  document.documentElement.dataset.theme=t;
+  if(!VIEW_MODE)localStorage.setItem(LS_THEME,t);
+  document.querySelectorAll('.tdot').forEach(d=>d.classList.toggle('active',d.dataset.t===t));
+}
+setTheme((EMBEDDED_SHARE&&EMBEDDED_SHARE.theme)||localStorage.getItem(LS_THEME)||'paper');
+document.querySelectorAll('.tdot[data-t]').forEach(d=>{d.addEventListener('click',()=>{if(!VIEW_MODE)setTheme(d.dataset.t);});});
+let savedTimer=null;
+function markSaved(){
+  const el=document.getElementById('saveState');
+  el.innerHTML='<i></i>保存中…';
+  clearTimeout(savedTimer);
+  savedTimer=setTimeout(()=>{el.innerHTML='<i></i>自动保存';},700);
+}
+let toastTimer=null;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+/* ---------- GitHub Pages 独立展示页导出 ---------- */
+function blobToDataURL(blob){
+  return new Promise((resolve,reject)=>{
+    if(!blob){reject(new Error('empty_media'));return;}
+    const reader=new FileReader();
+    reader.onload=()=>resolve(reader.result);
+    reader.onerror=()=>reject(reader.error||new Error('read_failed'));
+    reader.readAsDataURL(blob);
+  });
+}
+function clonePortfolioState(){return JSON.parse(JSON.stringify(state));}
+async function exportGitHubPages(){
+  if(VIEW_MODE)return;
+  const btn=document.getElementById('btnExportPages');
+  if(btn)btn.disabled=true;
+  try{
+    toast('正在整理作品和媒体文件…');
+    const media={};
+    let total=0;
+    for(const w of state.works||[])for(const g of w.groups||[])for(const sl of g.slots||[]){
+      const rec=await idbGet(sl.id).catch(()=>null);
+      if(!rec)continue;
+      const blob=sl.kind==='video'?(rec.blob||rec):(rec.full||rec.view||rec);
+      if(!(blob instanceof Blob))continue;
+      media[sl.id]={kind:sl.kind||rec.kind||'image',type:blob.type||rec.type||'application/octet-stream',dataUrl:await blobToDataURL(blob)};
+      total++;
+    }
+    const template=await fetch('portfolio-view.html?export='+Date.now()).then(r=>{
+      if(!r.ok)throw new Error('template_not_found');
+      return r.text();
+    });
+    const payload={version:1,theme:document.documentElement.dataset.theme||'paper',state:clonePortfolioState(),media};
+    const json=JSON.stringify(payload).replace(/</g,'\\u003c');
+    const injected='<script>window.__PF_SHARE__='+json+';<\\/script>';
+    const html=template.replace('<script>',injected+'<script>');
+    const out=new Blob([html],{type:'text/html;charset=utf-8'});
+    const url=URL.createObjectURL(out);
+    const a=document.createElement('a');
+    a.href=url;a.download='index.html';a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),3000);
+    toast('已生成 index.html · 已嵌入 '+total+' 个媒体文件');
+  }catch(err){
+    console.error(err);
+    const msg=String(err&&err.message||err);
+    if(msg==='template_not_found')toast('找不到 portfolio-view.html，请先用本地网页服务打开原版');
+    else toast('发布页生成失败：'+msg);
+  }finally{if(btn)btn.disabled=false;}
+}
+
+/* ---------- 初始化 ---------- */
+async function init(){
+  try{await openDB();}
+  catch(e){console.error('IndexedDB 打开失败',e);toast('本地存储不可用：图片将无法保存');}
+  if(orphanKeys.length){Promise.all(orphanKeys.map(k=>idbDel(k).catch(()=>{})));orphanKeys=[];}
+  const sub=document.getElementById('siteSub');
+  sub.textContent=state.sub;
+  sub.addEventListener('input',()=>{state.sub=sub.textContent;save();});
+  outlineTitleEl.textContent=state.outlineTitle||'作品大纲';
+  outlineTitleEl.addEventListener('input',()=>{state.outlineTitle=outlineTitleEl.textContent;save();});
+  build();
+  initReveal();
+  restoreImages();
+  fixSlotHeights();
+  onParallax();
+  /* 兜底：加载后强制检查一次视口内章节（防止任何 IO 异常导致动画缺失） */
+  setTimeout(()=>{
+    workEls.forEach(el=>{
+      const r=el.getBoundingClientRect();
+      if(r.top<innerHeight*.92&&r.bottom>0){el.classList.remove('out');el.classList.add('in');}
+    });
+  },600);
+  if(!VIEW_MODE){
+    document.getElementById('btnView')?.addEventListener('click',()=>{location.href='portfolio-view.html';});
+    document.getElementById('btnExportPages')?.addEventListener('click',exportGitHubPages);
+    document.getElementById('btnAddWork').addEventListener('click',addWork);
+    document.getElementById('btnClear').addEventListener('click',async()=>{
+    if(!confirm('确定清空所有图片和内容？此操作不可恢复。'))return;
+    await idbClear();
+    localStorage.removeItem(LS);
+    location.reload();
+    });
+  }
+  window.addEventListener('resize',()=>{clearTimeout(window.__rz);window.__rz=setTimeout(fixSlotHeights,150);});
+  setTimeout(()=>document.body.classList.add('loaded'),120);
+  setTimeout(fixSlotHeights,600); /* 字体/布局稳定后再校准一次 */
+}
+init().catch(err=>{console.error(err);toast('初始化失败');});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body><div id="codex-browser-sidebar-comments-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 2147483647;"></div></html>
